@@ -1,0 +1,25 @@
+package com.ltg.ltgfresh;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Bundle;
+import com.ltg.ltgfresh.Activity.LoginActivity;
+
+public class SplashScreenActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // This method will be executed once the timer is over
+                Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+            }
+        }, 3000);
+    }
+}
