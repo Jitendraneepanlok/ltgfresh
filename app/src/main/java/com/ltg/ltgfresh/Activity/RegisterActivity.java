@@ -1,6 +1,7 @@
 package com.ltg.ltgfresh.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
@@ -14,6 +15,7 @@ import com.ltg.ltgfresh.R;
 
 public class RegisterActivity extends AppCompatActivity {
     RelativeLayout rl_sign_in;
+    AppCompatImageView img_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void initView() {
+
+      View toolbar = (View)findViewById(R.id.toolbar);
+      img_back = (AppCompatImageView)toolbar.findViewById(R.id.img_back);
+      img_back.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+          }
+      });
+
         rl_sign_in = (RelativeLayout) findViewById(R.id.rl_sign_in);
         rl_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override

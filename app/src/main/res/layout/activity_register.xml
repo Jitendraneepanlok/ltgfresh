@@ -7,7 +7,8 @@
     android:orientation="vertical"
     tools:context=".Activity.LoginActivity">
 
-    <include layout="@layout/app_bar" />
+    <include layout="@layout/app_bar"
+        android:id="@+id/toolbar"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

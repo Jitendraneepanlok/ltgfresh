@@ -1,10 +1,11 @@
-package com.ltg.ltgfresh;
+package com.ltg.ltgfresh.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
-import com.ltg.ltgfresh.Activity.LoginActivity;
+
+import com.ltg.ltgfresh.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
