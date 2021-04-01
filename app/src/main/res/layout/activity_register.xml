@@ -165,6 +165,7 @@
                     android:paddingBottom="@dimen/_6sdp"
                     android:text="Sign Up"
                     android:textAllCaps="false"
+                    android:id="@+id/btn_register"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
