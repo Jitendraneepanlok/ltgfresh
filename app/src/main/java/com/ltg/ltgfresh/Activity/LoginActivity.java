@@ -2,6 +2,7 @@ package com.ltg.ltgfresh.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -39,11 +41,14 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private BroadcastReceiver MyReceiver = null;
     private SessionManager sessionManager;
+    Boolean ischecked = false;
+    AppCompatCheckBox cb_remember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -83,6 +88,16 @@ public class LoginActivity extends AppCompatActivity {
                 checkValidation();
             }
         });
+
+        cb_remember = (AppCompatCheckBox)findViewById(R.id.cb_remember);
+        cb_remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ischecked = isChecked;
+
+            }
+        });
+
     }
 
     private void checkValidation() {
@@ -138,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                         sessionManager.setValue(SessionManager.EMAIL, response.body().getData().getEmail());
                         sessionManager.setValue(SessionManager.PHONE, response.body().getData().getContact());
                         sessionManager.setValue(SessionManager.ROLE, response.body().getData().getRole());
+                        sessionManager.setValueBoolean(SessionManager.VALUE, ischecked);
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         pDialog.dismiss();

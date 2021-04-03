@@ -1,22 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".NavigationDrawerActvity.ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:background="@color/purple_500"
+        android:paddingTop="@dimen/_4sdp"
+        android:id="@+id/rl_search"
+        android:paddingBottom="@dimen/_4sdp">
+
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:filterTouchesWhenObscured="false"
+            android:queryHint="Search Here"
+            android:iconifiedByDefault="false"
+            android:layout_alignParentTop="true"
+           android:layout_margin="@dimen/_5sdp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/edittext_style" />
+
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_search">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rl_viewpager"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:paddingBottom="@dimen/_5sdp">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager_ads"
+                    android:layout_width="match_parent"
+                    android:layout_height="133dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp" />
+
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="120dp"
+                    android:gravity="center"
+                    app:centered="true"
+                    app:fillColor="#df0623"
+                    app:pageColor="@color/gray"
+                    app:snap="false" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/Welcometostore"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_14sdp"
+                    android:fontFamily="@font/arialmt"
+                    android:layout_below="@+id/indicator"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_viewpager">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_3sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:id="@+id/product_recycler"
+                    />
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</RelativeLayout>

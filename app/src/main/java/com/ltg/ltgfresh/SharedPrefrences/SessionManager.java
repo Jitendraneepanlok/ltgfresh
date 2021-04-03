@@ -12,6 +12,7 @@ public class SessionManager {
     static public String EMAIL = "email";
     static public String PHONE = "number";
     static public String ROLE = "role";
+    static public String VALUE = "value";
 
 
     public SessionManager(Context context) {
@@ -24,6 +25,16 @@ public class SessionManager {
 
     public String getValue(String key) {
         return sharedPreferences.getString(key, "");
+    }
+
+    public void setValueBoolean(String key , Boolean value){
+        sharedPreferences.edit().putBoolean(key, value).apply();
+
+    }
+
+    public boolean getValueBoolean(String key){
+       return sharedPreferences.getBoolean(key,false);
+
     }
 
     public void setslider(String key, Boolean value) {

@@ -9,7 +9,41 @@
         android:id="@+id/nav_home"
         android:name="com.ltg.ltgfresh.NavigationDrawerActvity.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+
+
+        <action
+            android:id="@+id/action_homeFragment_to_itemDetailFragment"
+            app:destination="@id/nav_item_details"
+            app:exitAnim="@anim/nav_default_exit_anim">
+
+          <!--  <argument
+                android:name="product_ID"
+                app:argType="string"
+                />-->
+
+        </action>
+
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/nav_item_details"
+        android:name="com.ltg.ltgfresh.Fragments.ItemDetailsFragment"
+        android:label="@string/item_details"
+        tools:layout="@layout/fragment_item_detail">
+
+        <argument
+            android:name="product_ID"
+            app:argType="string"
+            />
+
+
+    </fragment>
+
+
 
     <fragment
         android:id="@+id/nav_gallery"

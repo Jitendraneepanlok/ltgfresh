@@ -15,6 +15,7 @@
         <activity
             android:name=".NavigationDrawerActvity.MainActivity"
             android:label="@string/title_activity_main"
+            android:windowSoftInputMode="adjustNothing"
             android:theme="@style/Theme.LtgFresh.NoActionBar"></activity>
         <activity
             android:name=".Activity.RegisterActivity"
@@ -26,7 +27,9 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.SplashScreenActivity"
-            android:theme="@style/AppFullScreenTheme">
+            android:theme="@style/AppFullScreenTheme"
+            android:windowSoftInputMode="adjustNothing"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

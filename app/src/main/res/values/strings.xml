@@ -11,4 +11,13 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="Welcometostore">Welcome To Store</string>
+    <string name="Rs">\u20B9</string>
+    <string name="item_details">Product Item Details</string>
+    <string name="description">Description</string>
+    <string name="benifite">Benefite &amp; Uses</string>
+    <string name="disclimer">Disclaimer</string>
+    <string name="reviews">Reviews</string>
+    <string name="cart">ADD TO CART</string>
+    <string name="buy">BUY NOW</string>
 </resources>
