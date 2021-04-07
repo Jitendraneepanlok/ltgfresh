@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -47,6 +48,9 @@ public class ItemDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_item_detail, container, false);
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+      /*  /Showing the title
+        Navigation.findNavController(view)
+                .getCurrentDestination().setLabel("Hello");*/
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.item_details);
 
         // Here get product ID from Home page Selected product item from list
@@ -143,6 +147,13 @@ public class ItemDetailsFragment extends Fragment {
             pDialog.dismiss();
         }
 
-
     }
+
+   /* @Override
+    public void onResume() {
+        super.onResume();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setTitle(R.string.item_details);
+    }*/
 }
