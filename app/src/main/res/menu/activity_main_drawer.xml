@@ -8,13 +8,77 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
+    </group>
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="@string/menu_gallery"
+            android:visible="false" />
+
+    </group>
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/menu_slideshow"
+            android:visible="false" />
+
+
     </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_order_history"
+            android:icon="@drawable/ic_list"
+            android:title="@string/order_history" />
+    </group>
+
+
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_share"
+            android:title="@string/share" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/ic_phone"
+            android:title="@string/Contact_us" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_privacy_policy"
+            android:icon="@drawable/ic_privacy"
+            android:title="@string/privacy" />
+    </group>
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_terms"
+            android:icon="@drawable/ic_terms_condition"
+            android:title="@string/terms" />
+    </group>
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_offers"
+            android:icon="@drawable/ic_offers"
+            android:title="@string/offers" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
+    </group>
+
 </menu>

@@ -1,6 +1,8 @@
 package com.ltg.ltgfresh.NavigationDrawerActvity;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -13,10 +15,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ltg.ltgfresh.Adapter.ProductAdapter;
+import com.ltg.ltgfresh.Network.ApiClient;
+import com.ltg.ltgfresh.Network.ApiInterface;
+import com.ltg.ltgfresh.Pojo.ProductResponse;
+import com.ltg.ltgfresh.Pojo.UserProfileResponse;
 import com.ltg.ltgfresh.R;
 import com.ltg.ltgfresh.SharedPrefrences.SessionManager;
 
@@ -25,6 +39,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -34,8 +49,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
@@ -46,6 +65,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     AppCompatImageView img_profile;
     String name;
     NavController navController;
+    private ProgressDialog pDialog;
+    View headerView;
+    NavigationView navigationView;
+    DrawerLayout drawer;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +85,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
 */
 
-        sessionManager = new SessionManager(this);
-        name = sessionManager.getUserData(SessionManager.NAME);
-        Log.e("user_id", name);
+        img_profile = (AppCompatImageView) findViewById(R.id.img_profile);
+        img_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_homeFragment_to_profileFragment);
+            }
+        });
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        sessionManager = new SessionManager(this);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         tv_address = (AppCompatTextView) findViewById(R.id.tv_address);
 
-
         getCurrentLocation();
+        getUserProfileDetails();
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        /*tvname = (AppCompatTextView) drawer.findViewById(R.id.tvname);
-        tvname.setText(name);*/
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        headerView = navigationView.getHeaderView(0);
+        tvname = (AppCompatTextView) headerView.findViewById(R.id.tvname);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -86,14 +115,24 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        img_profile = (AppCompatImageView) findViewById(R.id.img_profile);
-        img_profile.setOnClickListener(new View.OnClickListener() {
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_homeFragment_to_profileFragment);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+                switch (item.getItemId()) {
+                    case R.id.nav_logout:
+                        OpenLoggedOutDailog();
+                        break;
+
+                }
+
+                NavigationUI.onNavDestinationSelected(item, navController);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
             }
         });
+
     }
 
 
@@ -200,6 +239,93 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onProviderDisabled(@NonNull String provider) {
+
+    }
+
+    private void getUserProfileDetails() {
+        String Id = sessionManager.getUserData(SessionManager.ID);
+        pDialog = new ProgressDialog(MainActivity.this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<UserProfileResponse> call = apiService.getUserDetails(Id);
+        try {
+            call.enqueue(new Callback<UserProfileResponse>() {
+                @Override
+                public void onResponse(Call<UserProfileResponse> call, retrofit2.Response<UserProfileResponse> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(MainActivity.this, String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
+                        String Name = response.body().getData().getName();
+
+                        tvname.setText(Name);
+                        pDialog.dismiss();
+
+                    } else {
+                        pDialog.cancel();
+                        try {
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<UserProfileResponse>() {
+                            }.getType();
+                            ProductResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+                            Log.e("errorResponse", String.valueOf(errorResponse.getStatus()));
+                            Toast.makeText(MainActivity.this, String.valueOf(errorResponse.getStatus()), Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Log.e("Exception", "" + e);
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserProfileResponse> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "" + t, Toast.LENGTH_SHORT).show();
+                    Log.e("", "Failer" + t);
+                    pDialog.dismiss();
+                }
+            });
+        } catch (Exception ex) {
+            Log.e("LoginFailer", "" + ex);
+            Toast.makeText(MainActivity.this, "" + ex, Toast.LENGTH_SHORT).show();
+            pDialog.dismiss();
+        }
+
+    }
+
+    private void OpenLoggedOutDailog() {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.logout_dialog);
+
+        dialog.setCancelable(false);
+
+        AppCompatTextView tvcancel = (AppCompatTextView) dialog.findViewById(R.id.tvcancel);
+        tvcancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+
+        AppCompatTextView tvyes = (AppCompatTextView) dialog.findViewById(R.id.tvyes);
+        tvyes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+                CallLogoutApi();
+            }
+        });
+
+        dialog.getWindow().setGravity(Gravity.CENTER);
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+
+    }
+
+    private void CallLogoutApi() {
+
 
     }
 }

@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -28,6 +29,7 @@ import com.ltg.ltgfresh.Network.ApiInterface;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
 import com.ltg.ltgfresh.Pojo.SingleProductResponse;
 import com.ltg.ltgfresh.R;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
 
@@ -40,7 +42,7 @@ public class ItemDetailsFragment extends Fragment {
     String Product_ID;
     private ProgressDialog pDialog;
     AppCompatTextView tv_title_name, tv_price, tv_description, tv_benefite, tv_disclimer, tv_review;
-
+    AppCompatImageView img_product;
     View view;
 
     @Nullable
@@ -70,7 +72,7 @@ public class ItemDetailsFragment extends Fragment {
         tv_benefite = (AppCompatTextView) view.findViewById(R.id.tv_benefite);
         tv_disclimer = (AppCompatTextView) view.findViewById(R.id.tv_disclimer);
         tv_review = (AppCompatTextView) view.findViewById(R.id.tv_review);
-
+        img_product = (AppCompatImageView) view.findViewById(R.id.img_product);
         btn_addtocart = (AppCompatButton) view.findViewById(R.id.btn_addtocart);
         btn_addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +119,8 @@ public class ItemDetailsFragment extends Fragment {
                         tv_benefite.setText(Html.fromHtml(response.body().getProducts().get(0).getBenefits()));
                         tv_disclimer.setText(Html.fromHtml(response.body().getProducts().get(0).getDisclaimer()));
                         tv_review.setText(Html.fromHtml(response.body().getProducts().get(0).getReviews()));
+                        Picasso.with(getContext()).load(response.body().getProducts().get(0).getThumbnail()).into(img_product);
+
                         pDialog.dismiss();
 
                     } else {

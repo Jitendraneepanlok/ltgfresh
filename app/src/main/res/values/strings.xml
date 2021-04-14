@@ -28,4 +28,16 @@
     <string name="last_name">Last Name</string>
     <string name="update">Update</string>
     <string name="address">Address</string>
+    <string name="order_history">Your Order</string>
+    <string name="share">Share</string>
+    <string name="Contact_us">Contact Us</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="terms">Terms &amp; Conditions</string>
+    <string name="logout">Logout</string>
+    <string name="offers">Offers</string>
+    <string name="cancel">Cancel</string>
+    <string name="ltg_fresh">LTG FRESH</string>
+    <string name="logout_text">Are you sure do you want to logged out ?</string>
+    <string name="yes">Yes</string>
+
 </resources>
