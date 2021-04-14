@@ -176,18 +176,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private  void getImmages(){
-
-     /*   pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Please wait...");
-        pDialog.setCancelable(false);
-        pDialog.show();*/
-
-        ApiInterface apiService = ApiClient.getXmlClient().create(ApiInterface.class);
-
-
-
-    }
 
     private void FirstViewPager() {
         for (int i = 0; i < IMAGES.length; i++)

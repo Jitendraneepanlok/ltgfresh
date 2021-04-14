@@ -10,26 +10,22 @@
         android:smallScreens="true"
         android:xlargeScreens="true" />
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="true" />
-
-    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false"/>
 
     <uses-feature
         android:name="android.hardware.location.gps"
@@ -45,10 +41,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LtgFresh">
         <activity
+            android:name=".Activity.ForgotPasswordActiviy"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
             android:name=".NavigationDrawerActvity.MainActivity"
             android:label="@string/title_activity_main"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/Theme.LtgFresh.NoActionBar"></activity>
+            android:theme="@style/Theme.LtgFresh.NoActionBar"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".Activity.RegisterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
@@ -60,8 +60,7 @@
         <activity
             android:name=".Activity.SplashScreenActivity"
             android:theme="@style/AppFullScreenTheme"
-            android:windowSoftInputMode="adjustNothing"
-            >
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

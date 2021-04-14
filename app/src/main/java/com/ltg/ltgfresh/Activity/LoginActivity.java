@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
@@ -14,9 +17,12 @@ import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -43,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     Boolean ischecked = false;
     AppCompatCheckBox cb_remember;
+    AppCompatTextView tv_forget_pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        cb_remember = (AppCompatCheckBox)findViewById(R.id.cb_remember);
+        cb_remember = (AppCompatCheckBox) findViewById(R.id.cb_remember);
         cb_remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -98,7 +105,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        tv_forget_pass = (AppCompatTextView) findViewById(R.id.tv_forget_pass);
+        tv_forget_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(getApplicationContext(),ForgotPasswordActiviy.class));
+            }
+        });
+
     }
+
 
     private void checkValidation() {
         et_phone = (AppCompatEditText) findViewById(R.id.et_phone);
@@ -179,4 +196,5 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
 }

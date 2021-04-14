@@ -19,6 +19,7 @@
         android:layout_toRightOf="@+id/img_back"
         android:fontFamily="@font/arialmtbold"
         android:paddingLeft="@dimen/_20sdp"
+        android:id="@+id/tv_text"
         android:text="User Register"
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp" />

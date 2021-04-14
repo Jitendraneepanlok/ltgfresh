@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.ltg.ltgfresh.Pojo.ProductData;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
 import com.ltg.ltgfresh.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -65,8 +66,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(final ProductAdapter.MyViewHolder holder, int position) {
-        ProductData superCatModel = sellingSoldDataResponse.getProducts().get(position);
-        holder.title.setText(superCatModel.getName());
+        ProductData productData = sellingSoldDataResponse.getProducts().get(position);
+        holder.title.setText(productData.getName());
+
+       Picasso.with(mContext).load(productData.getThumbnail()).into(holder.thumbnail);
+
         // here pass the product id with product item position
         Bundle bundle = new Bundle();
         bundle.putString("Product_ID", sellingSoldDataResponse.getProducts().get(position).getId());

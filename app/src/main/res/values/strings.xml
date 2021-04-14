@@ -19,4 +19,13 @@
     <string name="reviews">Reviews</string>
     <string name="cart">ADD TO CART</string>
     <string name="buy">BUY NOW</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="hint_number">1234567890</string>
+    <string name="enter_no">Please Enter Your Registred Mobile No.</string>
+    <string name="profile">Edit Profile</string>
+    <string name="edit_photo">Edit Photo</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="update">Update</string>
+    <string name="address">Address</string>
 </resources>

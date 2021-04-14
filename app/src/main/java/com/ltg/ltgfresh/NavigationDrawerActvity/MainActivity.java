@@ -21,6 +21,7 @@ import com.ltg.ltgfresh.R;
 import com.ltg.ltgfresh.SharedPrefrences.SessionManager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -42,8 +43,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private SessionManager sessionManager;
     AppCompatTextView tvname, tv_address;
     static String result = "";
-
+    AppCompatImageView img_profile;
     String name;
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setSupportActionBar(toolbar);
         tv_address = (AppCompatTextView) findViewById(R.id.tv_address);
 
+
         getCurrentLocation();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -80,9 +83,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        img_profile = (AppCompatImageView) findViewById(R.id.img_profile);
+        img_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_homeFragment_to_profileFragment);
+            }
+        });
     }
 
 
@@ -122,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                                 sb.append(address.getCountryName());
                                 result = sb.toString();
                                 Log.e("Address", "" + result);
-                                tv_address.setText(address.getLocality()+" "+address.getCountryName());
+                                tv_address.setText(address.getLocality() + " " + address.getCountryName());
                             }
                         } catch (IOException e) {
                             Log.e("Location Address Loader", "Unable connect to Geocoder", e);

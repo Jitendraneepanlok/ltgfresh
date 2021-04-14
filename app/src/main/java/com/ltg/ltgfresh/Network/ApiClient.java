@@ -8,7 +8,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class ApiClient {
     public static final String BASE_URL = "https://ltgfresh.com/api/Member/";
-    public static final String IMAGE_URL = "https://ltgfresh.com/assets/img/product_img/";
+//    public static final String IMAGE_URL = "https://ltgfresh.com/assets/img/product_img/";
 
     public static Retrofit retrofit = null;
     public static Retrofit getClient() {
@@ -35,7 +35,7 @@ public class ApiClient {
 
         return retrofit;
     }
-    public static Retrofit getXmlClient(){
+  /*  public static Retrofit getXmlClient(){
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(IMAGE_URL)
@@ -44,6 +44,6 @@ public class ApiClient {
                 .build();
 
         return retrofit;
-    }
+    }*/
 
 }

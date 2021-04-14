@@ -35,4 +35,12 @@
     <style name="Theme.LtgFresh.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.LtgFresh.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>

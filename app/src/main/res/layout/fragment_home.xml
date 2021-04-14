@@ -8,11 +8,11 @@
     tools:context=".NavigationDrawerActvity.ui.home.HomeFragment">
 
     <RelativeLayout
+        android:id="@+id/rl_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple_500"
         android:paddingTop="@dimen/_4sdp"
-        android:id="@+id/rl_search"
         android:paddingBottom="@dimen/_4sdp">
 
 
@@ -20,15 +20,15 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="false"
-            android:filterTouchesWhenObscured="false"
-            android:queryHint="Search Here"
-            android:iconifiedByDefault="false"
             android:layout_alignParentTop="true"
-           android:layout_margin="@dimen/_5sdp"
-            android:queryBackground="@color/white"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/edittext_style"
             android:backgroundTint="@color/white"
-            android:background="@drawable/edittext_style" />
+            android:filterTouchesWhenObscured="false"
+            android:focusable="false"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@color/white"
+            android:queryHint="Search Here" />
 
 
     </RelativeLayout>
@@ -43,9 +43,9 @@
             android:layout_height="match_parent">
 
             <RelativeLayout
+                android:id="@+id/rl_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/rl_viewpager"
                 android:layout_marginTop="@dimen/_7sdp"
                 android:paddingBottom="@dimen/_5sdp">
 
@@ -71,45 +71,31 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/indicator"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/arialmt"
                     android:gravity="center"
                     android:text="@string/Welcometostore"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:textSize="@dimen/_14sdp"
-                    android:fontFamily="@font/arialmt"
-                    android:layout_below="@+id/indicator"
-                    android:layout_marginTop="@dimen/_10sdp"/>
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/product_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rl_viewpager">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_3sdp"
-                    android:paddingBottom="@dimen/_5sdp"
-                    android:id="@+id/product_recycler"
-                    />
-
-            </RelativeLayout>
-
+                android:layout_below="@+id/rl_viewpager"
+                android:layout_margin="@dimen/_3sdp"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="@dimen/_5sdp" />
 
 
         </RelativeLayout>
 
 
-
-
-
-
-
-
     </androidx.core.widget.NestedScrollView>
-
 
 
 </RelativeLayout>
