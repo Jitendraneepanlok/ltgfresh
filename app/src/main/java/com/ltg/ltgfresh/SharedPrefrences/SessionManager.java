@@ -50,9 +50,7 @@ public class SessionManager {
     }
 
     public void logout() {
-        String slider = getValue("slider");
         sharedPreferences.edit().clear().apply();
-        setValue("slider", slider);
     }
 
 }

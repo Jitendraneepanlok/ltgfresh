@@ -2,6 +2,7 @@ package com.ltg.ltgfresh.Network;
 
 import com.ltg.ltgfresh.Pojo.ForgetPasswordResponse;
 import com.ltg.ltgfresh.Pojo.LoginResponse;
+import com.ltg.ltgfresh.Pojo.LogoutResponse;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
 import com.ltg.ltgfresh.Pojo.RegistrationResponse;
 import com.ltg.ltgfresh.Pojo.SingleProductResponse;
@@ -67,5 +68,12 @@ public interface ApiInterface {
 
     @GET("user?")
     Call<UserProfileResponse> getUserDetails(@Query("id") String Id);
+
+    //=====================  Get Logout Api===============================
+
+    @GET("logout?")
+    Call<LogoutResponse> getlogout(@Query("id") String Id);
+
+
 
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -26,9 +27,11 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ltg.ltgfresh.Activity.SplashScreenActivity;
 import com.ltg.ltgfresh.Adapter.ProductAdapter;
 import com.ltg.ltgfresh.Network.ApiClient;
 import com.ltg.ltgfresh.Network.ApiInterface;
+import com.ltg.ltgfresh.Pojo.LogoutResponse;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
 import com.ltg.ltgfresh.Pojo.UserProfileResponse;
 import com.ltg.ltgfresh.R;
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     NavigationView navigationView;
     DrawerLayout drawer;
     Toolbar toolbar;
+    String Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void getUserProfileDetails() {
-        String Id = sessionManager.getUserData(SessionManager.ID);
+        Id = sessionManager.getUserData(SessionManager.ID);
         pDialog = new ProgressDialog(MainActivity.this);
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
@@ -268,7 +272,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             Gson gson = new Gson();
                             Type type = new TypeToken<UserProfileResponse>() {
                             }.getType();
-                            ProductResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+                            UserProfileResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
                             Log.e("errorResponse", String.valueOf(errorResponse.getStatus()));
                             Toast.makeText(MainActivity.this, String.valueOf(errorResponse.getStatus()), Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
@@ -297,7 +301,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Dialog dialog = new Dialog(MainActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.logout_dialog);
-
         dialog.setCancelable(false);
 
         AppCompatTextView tvcancel = (AppCompatTextView) dialog.findViewById(R.id.tvcancel);
@@ -325,6 +328,52 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void CallLogoutApi() {
+        Id = sessionManager.getUserData(SessionManager.ID);
+        pDialog = new ProgressDialog(MainActivity.this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<LogoutResponse> call = apiService.getlogout(Id);
+        try {
+            call.enqueue(new Callback<LogoutResponse>() {
+                @Override
+                public void onResponse(Call<LogoutResponse> call, retrofit2.Response<LogoutResponse> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(MainActivity.this, String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
+                        sessionManager.logout();
+                        startActivity(new Intent(getApplicationContext(), SplashScreenActivity.class));
+                        pDialog.dismiss();
+
+                    } else {
+                        pDialog.cancel();
+                        try {
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<LogoutResponse>() {
+                            }.getType();
+                            LogoutResponse errorResponse = gson.fromJson(response.errorBody().charStream(), type);
+                            Log.e("errorResponse", String.valueOf(errorResponse.getStatus()));
+                            Toast.makeText(MainActivity.this, String.valueOf(errorResponse.getStatus()), Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Log.e("Exception", "" + e);
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "" + t, Toast.LENGTH_SHORT).show();
+                    Log.e("", "Failer" + t);
+                    pDialog.dismiss();
+                }
+            });
+        } catch (Exception ex) {
+            Log.e("LoginFailer", "" + ex);
+            Toast.makeText(MainActivity.this, "" + ex, Toast.LENGTH_SHORT).show();
+            pDialog.dismiss();
+        }
 
 
     }
