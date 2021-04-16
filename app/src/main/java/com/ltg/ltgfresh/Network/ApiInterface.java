@@ -1,10 +1,13 @@
 package com.ltg.ltgfresh.Network;
 
+import com.ltg.ltgfresh.Pojo.BannerResponse;
 import com.ltg.ltgfresh.Pojo.ForgetPasswordResponse;
 import com.ltg.ltgfresh.Pojo.LoginResponse;
 import com.ltg.ltgfresh.Pojo.LogoutResponse;
+import com.ltg.ltgfresh.Pojo.OffersResponse;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
 import com.ltg.ltgfresh.Pojo.RegistrationResponse;
+import com.ltg.ltgfresh.Pojo.ShopResponse;
 import com.ltg.ltgfresh.Pojo.SingleProductResponse;
 import com.ltg.ltgfresh.Pojo.UpdateProfileResponse;
 import com.ltg.ltgfresh.Pojo.UserProfileResponse;
@@ -74,6 +77,19 @@ public interface ApiInterface {
     @GET("logout?")
     Call<LogoutResponse> getlogout(@Query("id") String Id);
 
+    //=====================  Get Shop Category Api===============================
+
+    @GET("category")
+    Call<ShopResponse> getCategory();
 
 
+    //=====================  Get Offers Api===============================
+
+    @GET("offer")
+    Call<OffersResponse> getoffers();
+
+    //=====================  Get Banner Images Api===============================
+
+    @GET("banner")
+    Call<BannerResponse> getBanner();
 }

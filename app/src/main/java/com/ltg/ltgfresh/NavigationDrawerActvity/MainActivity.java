@@ -11,6 +11,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ltg.ltgfresh.Activity.LoginActivity;
 import com.ltg.ltgfresh.Activity.SplashScreenActivity;
 import com.ltg.ltgfresh.Adapter.ProductAdapter;
 import com.ltg.ltgfresh.Network.ApiClient;
@@ -60,7 +62,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
-
     private AppBarConfiguration mAppBarConfiguration;
     private SessionManager sessionManager;
     AppCompatTextView tvname, tv_address;
@@ -122,13 +123,43 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-
                 switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        navController.navigate(R.id.nav_home);
+                        break;
+
                     case R.id.nav_logout:
                         OpenLoggedOutDailog();
                         break;
 
+                    case R.id.nav_contact_us:
+                        String url = "https://ltgfresh.com/welcome/contact";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        startActivity(i);
+                        break;
+
+
+                    case R.id.nav_privacy_policy:
+                        String privacy_url = "https://ltgfresh.com/welcome/privacy_policy";
+                        Intent in = new Intent(Intent.ACTION_VIEW);
+                        in.setData(Uri.parse(privacy_url));
+                        startActivity(in);
+                        break;
+
+                    case R.id.nav_terms:
+                        String terms_url = "https://ltgfresh.com/welcome/terms_condition";
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(terms_url));
+                        startActivity(intent);
+                        break;
+
+                    case R.id.nav_share:
+                        String share_url = "https://play.google.com/store/apps/details?id=co.wl.freshapure";
+                        Intent share = new Intent(Intent.ACTION_VIEW);
+                        share.setData(Uri.parse(share_url));
+                        startActivity(share);
+                        break;
                 }
 
                 NavigationUI.onNavDestinationSelected(item, navController);
@@ -343,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     if (response.isSuccessful()) {
                         Toast.makeText(MainActivity.this, String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
                         sessionManager.logout();
-                        startActivity(new Intent(getApplicationContext(), SplashScreenActivity.class));
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         pDialog.dismiss();
 
                     } else {

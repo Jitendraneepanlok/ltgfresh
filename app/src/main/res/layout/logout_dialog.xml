@@ -59,28 +59,27 @@
                     android:background="@drawable/btn_style_reset_pass"
                     android:paddingLeft="@dimen/_20sdp"
                     android:paddingRight="@dimen/_20sdp"
-                    android:layout_gravity="end"
-                    android:gravity="end"
                     android:layout_marginRight="@dimen/_20sdp"
                     android:id="@+id/tvcancel"
                     android:textStyle="bold"
-                    android:textSize="@dimen/_12sdp"
-                    android:paddingTop="@dimen/_5sdp"
-                    android:paddingBottom="@dimen/_5sdp" />
+                    android:textSize="@dimen/_13sdp"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_8sdp" />
 
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_13sdp"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_style_reset_pass"
                     android:paddingLeft="@dimen/_20sdp"
-                    android:paddingTop="@dimen/_5sdp"
                     android:paddingRight="@dimen/_20sdp"
-                    android:paddingBottom="@dimen/_5sdp"
-                    android:text="@string/yes"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_8sdp"                    android:text="@string/yes"
                     android:id="@+id/tvyes"
+                    android:gravity="center"
                     android:textColor="@color/white"
                     android:layout_marginRight="@dimen/_20sdp"/>
             </LinearLayout>

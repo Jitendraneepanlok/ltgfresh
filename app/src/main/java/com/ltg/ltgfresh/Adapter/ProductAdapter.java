@@ -69,8 +69,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         ProductData productData = sellingSoldDataResponse.getProducts().get(position);
         holder.title.setText(productData.getName());
 
-       Picasso.with(mContext).load(productData.getThumbnail()).into(holder.thumbnail);
-
+     //  Picasso.with(mContext).load(productData.getThumbnail()).into(holder.thumbnail);
+        Glide.with(mContext)
+                .load(productData.getThumbnail())
+                .into(holder.thumbnail);
         // here pass the product id with product item position
         Bundle bundle = new Bundle();
         bundle.putString("Product_ID", sellingSoldDataResponse.getProducts().get(position).getId());

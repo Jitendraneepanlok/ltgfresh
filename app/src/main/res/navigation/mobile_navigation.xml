@@ -55,6 +55,21 @@
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.ltg.ltgfresh.NavigationDrawerActvity.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:label="@string/my_shop"
+        tools:layout="@layout/fragment_slideshow">
+
+
+        <action
+            android:id="@+id/action_slideshowFragment_to_subCategoryFragment"
+            app:destination="@id/nav_sub_category"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sub_category"
+        android:label="@string/my_shop"
+        android:name="com.ltg.ltgfresh.Fragments.SubCategoryFragment"
+        tools:layout="@layout/fragment_sub_category"/>
+
 </navigation>

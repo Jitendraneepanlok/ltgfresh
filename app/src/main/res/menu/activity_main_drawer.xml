@@ -6,25 +6,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home"
             android:title="@string/menu_home" />
     </group>
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery"
-            android:visible="false" />
 
-    </group>
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow"
-            android:visible="false" />
-
-
+            android:icon="@drawable/ic_shop"
+            android:title="@string/my_shop"
+            />
     </group>
 
     <group android:checkableBehavior="single">
@@ -33,9 +24,6 @@
             android:icon="@drawable/ic_list"
             android:title="@string/order_history" />
     </group>
-
-
-
 
     <group android:checkableBehavior="single">
         <item
@@ -67,12 +55,24 @@
     </group>
 
 
-    <group android:checkableBehavior="single">
+   <!-- <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_offers"
             android:icon="@drawable/ic_offers"
-            android:title="@string/offers" />
+            android:title="@string/offers"
+            android:visible="false"/>
+    </group>-->
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_offers"
+            android:title="@string/menu_gallery" />
+
     </group>
+
+
 
     <group android:checkableBehavior="single">
         <item
