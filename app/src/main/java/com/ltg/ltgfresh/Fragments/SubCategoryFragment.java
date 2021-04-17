@@ -1,6 +1,7 @@
 package com.ltg.ltgfresh.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ltg.ltgfresh.Pojo.SubCategory;
 import com.ltg.ltgfresh.R;
+
+import java.util.List;
 
 public class SubCategoryFragment extends Fragment {
     private NavController navController;
@@ -25,6 +29,8 @@ public class SubCategoryFragment extends Fragment {
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         view = inflater.inflate(R.layout.fragment_sub_category, container, false);
         intView();
+        List<SubCategory> SubCategory =(List<SubCategory>) getArguments().getSerializable("Sub_Category");
+        Log.e("SubCategory", "" + SubCategory.get(0).getCategoriesName());
         return view;
     }
 

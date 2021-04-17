@@ -6,21 +6,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
+import com.ltg.ltgfresh.Pojo.BannerData;
 import com.ltg.ltgfresh.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SlidingImage_Adapter extends PagerAdapter {
-    private ArrayList<Integer> IMAGES;
+    private List<BannerData> IMAGES;
     private LayoutInflater inflater;
     private Context context;
 
 
-    public SlidingImage_Adapter(Context context,ArrayList<Integer> IMAGES) {
+    public SlidingImage_Adapter(Context context, List<BannerData> IMAGES) {
         this.context = context;
-        this.IMAGES=IMAGES;
+        this.IMAGES = IMAGES;
         inflater = LayoutInflater.from(context);
     }
 
@@ -40,7 +44,10 @@ public class SlidingImage_Adapter extends PagerAdapter {
 
         assert imageLayout != null;
         final ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
-        imageView.setImageResource(IMAGES.get(position));
+//        imageView.setImageResource(IMAGES.get(position));
+        Glide.with(context)
+                .load(IMAGES.get(position).getBanner())
+                .into(imageView);
         view.addView(imageLayout, 0);
         return imageLayout;
     }

@@ -98,9 +98,9 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < IMAGES.length; i++)
             ImagesArray.add(IMAGES[i]);
 
-        view_pager_ads.setAdapter(new SlidingImage_Adapter(getActivity(), ImagesArray));
-        indicator.setViewPager(view_pager_ads);
-        final float density = getResources().getDisplayMetrics().density;
+//        view_pager_ads.setAdapter(new SlidingImage_Adapter(getActivity(), ImagesArray));
+//        indicator.setViewPager(view_pager_ads);
+      /*  final float density = getResources().getDisplayMetrics().density;
         indicator.setRadius(5 * density);
         NUM_PAGES = IMAGES.length;
         // Auto start of viewpager
@@ -139,14 +139,14 @@ public class HomeFragment extends Fragment {
             public void onPageScrollStateChanged(int pos) {
 
             }
-        });
+        });*/
     }
 
     private void getBannerImages() {
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Please wait...");
-        pDialog.setCancelable(false);
-        pDialog.show();
+//        pDialog = new ProgressDialog(getActivity());
+//        pDialog.setMessage("Please wait...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<BannerResponse> call = apiService.getBanner();
@@ -156,11 +156,55 @@ public class HomeFragment extends Fragment {
                 public void onResponse(Call<BannerResponse> call, retrofit2.Response<BannerResponse> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(getActivity(), String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
+                        Log.e("res",""+response.body().getStatus());
 
-                        pDialog.dismiss();
+                        view_pager_ads.setAdapter(new SlidingImage_Adapter(getActivity(),response.body().getBanner()));
+                        indicator.setViewPager(view_pager_ads);
+                        final float density = getResources().getDisplayMetrics().density;
+                        indicator.setRadius(5 * density);
+                        NUM_PAGES = IMAGES.length;
+                        // Auto start of viewpager
+                        final Handler handler = new Handler();
+                        final Runnable Update = new Runnable() {
+                            public void run() {
+                                if (currentPage == NUM_PAGES) {
+                                    currentPage = 0;
+                                }
+                                view_pager_ads.setCurrentItem(currentPage++, true);
+                            }
+                        };
+                        Timer swipeTimer = new Timer();
+                        swipeTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                handler.post(Update);
+                            }
+                        }, 3000, 3000);
+
+                        // Pager listener over indicator
+                        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+                            @Override
+                            public void onPageSelected(int position) {
+                                currentPage = position;
+
+                            }
+
+                            @Override
+                            public void onPageScrolled(int pos, float arg1, int arg2) {
+
+                            }
+
+                            @Override
+                            public void onPageScrollStateChanged(int pos) {
+
+                            }
+                        });
+//                        pDialog.dismiss();
 
                     } else {
-                        pDialog.cancel();
+                        Log.e("res",""+response.body().getStatus());
+                      //  pDialog.dismiss();
                         try {
                             Gson gson = new Gson();
                             Type type = new TypeToken<ProductResponse>() {
@@ -178,7 +222,7 @@ public class HomeFragment extends Fragment {
                 public void onFailure(Call<BannerResponse> call, Throwable t) {
                     Toast.makeText(getActivity(), "" + t, Toast.LENGTH_SHORT).show();
                     Log.e("", "Failer" + t);
-                    pDialog.dismiss();
+                   // pDialog.dismiss();
                 }
             });
         } catch (Exception ex) {

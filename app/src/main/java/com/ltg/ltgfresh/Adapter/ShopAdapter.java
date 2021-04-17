@@ -23,6 +23,8 @@ import com.ltg.ltgfresh.Pojo.SubCategory;
 import com.ltg.ltgfresh.R;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> {
 
     private Context mContext;
@@ -85,8 +87,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
         holder.card_category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Sub_Category", (Serializable) category.getSubCategory());
+
+
+
                 navController = Navigation.findNavController((Activity) mContext, R.id.nav_host_fragment);
-                navController.navigate(R.id.action_slideshowFragment_to_subCategoryFragment);
+                navController.navigate(R.id.action_slideshowFragment_to_subCategoryFragment,bundle);
             }
         });
     }

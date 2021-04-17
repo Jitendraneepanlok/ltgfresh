@@ -58,6 +58,10 @@
         android:label="@string/my_shop"
         tools:layout="@layout/fragment_slideshow">
 
+        <argument
+            android:name="Sub_Category"
+            app:argType="string"
+            />
 
         <action
             android:id="@+id/action_slideshowFragment_to_subCategoryFragment"
