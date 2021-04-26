@@ -1,8 +1,6 @@
 package com.ltg.ltgfresh.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.ltg.ltgfresh.Pojo.OfferData;
 import com.ltg.ltgfresh.Pojo.OffersResponse;
-import com.ltg.ltgfresh.Pojo.ProductData;
-import com.ltg.ltgfresh.Pojo.ProductResponse;
 import com.ltg.ltgfresh.R;
 
 public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHolder> {
@@ -68,7 +63,7 @@ public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.MyViewHold
         OfferData offerData = offersResponse.getOffer().get(position);
         holder.title.setText(offerData.getName());
         holder.offer_percantage.setText(offerData.getOfferValue() + " % off");
-        holder.max_price.setText("\\u20B9 "+offerData.getMaxCash());
+//        holder.max_price.setText("\u20B9 "+offerData.getMaxCash());
         holder.descrption.setText(offerData.getDescription());
         Glide.with(mContext)
                 .load(offerData.getImage())

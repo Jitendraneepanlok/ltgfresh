@@ -1,10 +1,8 @@
 package com.ltg.ltgfresh.Pojo;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ProductData {
-
     @SerializedName("id")
     @Expose
     private String id;
@@ -41,6 +39,9 @@ public class ProductData {
     @SerializedName("price")
     @Expose
     private Object price;
+    @SerializedName("actual_price")
+    @Expose
+    private Object actualPrice;
     @SerializedName("description")
     @Expose
     private String description;
@@ -163,6 +164,14 @@ public class ProductData {
 
     public void setPrice(Object price) {
         this.price = price;
+    }
+
+    public Object getActualPrice() {
+        return actualPrice;
+    }
+
+    public void setActualPrice(Object actualPrice) {
+        this.actualPrice = actualPrice;
     }
 
     public String getDescription() {

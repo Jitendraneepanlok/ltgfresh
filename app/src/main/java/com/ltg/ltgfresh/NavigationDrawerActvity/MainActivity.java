@@ -25,6 +25,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -58,6 +59,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     DrawerLayout drawer;
     Toolbar toolbar;
     String Id;
+    CircleImageView img_user_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         navigationView = findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
         tvname = (AppCompatTextView) headerView.findViewById(R.id.tvname);
-
+        img_user_profile = (CircleImageView) headerView.findViewById(R.id.img_user_profile);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -295,6 +298,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         String Name = response.body().getData().getName();
 
                         tvname.setText(Name);
+                        Glide.with(MainActivity.this)
+                                .load(response.body().getData().getProfilePic())
+                                .placeholder(R.drawable.ic_user)
+                                .into(img_user_profile);
                         pDialog.dismiss();
 
                     } else {

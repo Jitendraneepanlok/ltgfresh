@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class UserProfileData {
+
     @SerializedName("id")
     @Expose
     private String id;
@@ -30,7 +31,7 @@ public class UserProfileData {
     private String password;
     @SerializedName("contact")
     @Expose
-    private String contact;
+    private Object contact;
     @SerializedName("role")
     @Expose
     private String role;
@@ -75,7 +76,7 @@ public class UserProfileData {
     private String googleImg;
     @SerializedName("profile_pic")
     @Expose
-    private Object profilePic;
+    private String profilePic;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -150,11 +151,11 @@ public class UserProfileData {
         this.password = password;
     }
 
-    public String getContact() {
+    public Object getContact() {
         return contact;
     }
 
-    public void setContact(String contact) {
+    public void setContact(Object contact) {
         this.contact = contact;
     }
 
@@ -270,11 +271,11 @@ public class UserProfileData {
         this.googleImg = googleImg;
     }
 
-    public Object getProfilePic() {
+    public String getProfilePic() {
         return profilePic;
     }
 
-    public void setProfilePic(Object profilePic) {
+    public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
 
@@ -301,5 +302,6 @@ public class UserProfileData {
     public void setCategoryType(Object categoryType) {
         this.categoryType = categoryType;
     }
+
 
 }

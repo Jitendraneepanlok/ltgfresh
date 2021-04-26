@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -14,28 +13,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.gson.Gson;
@@ -45,7 +34,6 @@ import com.ltg.ltgfresh.Adapter.SlidingImage_Adapter;
 import com.ltg.ltgfresh.Network.ApiClient;
 import com.ltg.ltgfresh.Network.ApiInterface;
 import com.ltg.ltgfresh.Pojo.BannerResponse;
-import com.ltg.ltgfresh.Pojo.ProductData;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.ltg.ltgfresh.R;
@@ -162,7 +150,7 @@ public class HomeFragment extends Fragment {
                         indicator.setViewPager(view_pager_ads);
                         final float density = getResources().getDisplayMetrics().density;
                         indicator.setRadius(5 * density);
-                        NUM_PAGES = IMAGES.length;
+                        NUM_PAGES = response.body().getBanner().size();
                         // Auto start of viewpager
                         final Handler handler = new Handler();
                         final Runnable Update = new Runnable() {
@@ -246,6 +234,7 @@ public class HomeFragment extends Fragment {
                 public void onResponse(Call<ProductResponse> call, retrofit2.Response<ProductResponse> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(getActivity(), String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
+                        Log.e("Response",""+String.valueOf(response.body().getStatus()));
                         productAdapter = new ProductAdapter(getActivity(), response.body());
                         product_recycler.setAdapter(productAdapter);
                         productAdapter.notifyDataSetChanged();
@@ -269,7 +258,7 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onFailure(Call<ProductResponse> call, Throwable t) {
                     Toast.makeText(getActivity(), "" + t, Toast.LENGTH_SHORT).show();
-                    Log.e("", "Failer" + t);
+                    Log.e("msg", "Failer" + t);
                     pDialog.dismiss();
                 }
             });

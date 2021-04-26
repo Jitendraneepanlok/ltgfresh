@@ -233,12 +233,10 @@ public class ProfileFragment extends Fragment {
         }
 
         Log.e("patheee", destination.getAbsolutePath() + " check" + destination.getPath());
+        CameraFilePath = Uri.parse(destination.getAbsolutePath() + " check" + destination.getPath());
+
         img_profile.setImageBitmap(getImage);
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        getImage.compress(Bitmap.CompressFormat.JPEG,100, baos);
-        byte [] b=baos.toByteArray();
-        CameraImagetemp= Base64.encodeToString(b, Base64.DEFAULT);
-        Log.e("Camera", "" + CameraImagetemp);
+
     }
 
     private void onSelectFromGalleryResult(Intent data) {
@@ -251,11 +249,7 @@ public class ProfileFragment extends Fragment {
             }
         }
         img_profile.setImageBitmap(getImage);
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        getImage.compress(Bitmap.CompressFormat.JPEG,100, baos);
-        byte [] b=baos.toByteArray();
-         GalleryImagetemp= Base64.encodeToString(b, Base64.DEFAULT);
-        Log.e("Gallery", "" + GalleryImagetemp);
+
 
     }
 
@@ -314,8 +308,7 @@ public class ProfileFragment extends Fragment {
         pDialog.show();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<UpdateProfileResponse> call = apiService.postUpdateProfile(First_Name, Last_Name, Phone, Email, Address,CameraImagetemp+" , "+GalleryImagetemp,User_ID);
-       Log.e("Request",""+CameraImagetemp);
+        Call<UpdateProfileResponse> call = apiService.postUpdateProfile(First_Name, Last_Name, Phone, Email, Address, filePath+","+CameraFilePath,User_ID);
 
         try {
             call.enqueue(new Callback<UpdateProfileResponse>() {

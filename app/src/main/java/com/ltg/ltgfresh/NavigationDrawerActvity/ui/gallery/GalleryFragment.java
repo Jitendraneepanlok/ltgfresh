@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
@@ -62,9 +63,13 @@ public class GalleryFragment extends Fragment {
 
     private void initView() {
         offers_recycler = (RecyclerView) root.findViewById(R.id.offers_recycler);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+       /* RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         offers_recycler.setLayoutManager(mLayoutManager);
         offers_recycler.addItemDecoration(new GalleryFragment.GridSpacingItemDecoration(2, 1, true));
+        offers_recycler.setItemAnimator(new DefaultItemAnimator());*/
+
+        LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        offers_recycler.setLayoutManager(verticalLayoutManager);
         offers_recycler.setItemAnimator(new DefaultItemAnimator());
     }
 
