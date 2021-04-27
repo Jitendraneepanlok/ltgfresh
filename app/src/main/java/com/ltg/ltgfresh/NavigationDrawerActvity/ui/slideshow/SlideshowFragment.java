@@ -54,11 +54,10 @@ public class SlideshowFragment extends Fragment {
         });*/
         initView();
         getShopList();
+        getOrganicProduct();
 
         return root;
     }
-
-
     private void initView() {
         shop_recycler = (RecyclerView)root.findViewById(R.id.shop_recycler);
         LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -115,4 +114,7 @@ public class SlideshowFragment extends Fragment {
 
     }
 
+    private void getOrganicProduct() {
+
+    }
 }

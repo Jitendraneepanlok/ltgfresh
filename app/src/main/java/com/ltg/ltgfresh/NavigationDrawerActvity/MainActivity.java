@@ -131,6 +131,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         navController.navigate(R.id.nav_home);
                         break;
 
+                    case R.id.nav_organic:
+                        navController.navigate(R.id.nav_slideshow);
+
+                        break;
+
                     case R.id.nav_logout:
                         OpenLoggedOutDailog();
                         break;
@@ -295,9 +300,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 public void onResponse(Call<UserProfileResponse> call, retrofit2.Response<UserProfileResponse> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(MainActivity.this, String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
-                        String Name = response.body().getData().getName();
-
-                        tvname.setText(Name);
+                        tvname.setText(response.body().getData().getName());
                         Glide.with(MainActivity.this)
                                 .load(response.body().getData().getProfilePic())
                                 .placeholder(R.drawable.ic_user)

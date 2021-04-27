@@ -2,6 +2,8 @@ package com.ltg.ltgfresh.Pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class ProductData {
     @SerializedName("id")
     @Expose
@@ -12,9 +14,6 @@ public class ProductData {
     @SerializedName("sub_cat_id")
     @Expose
     private String subCatId;
-    @SerializedName("sub_sub_cat_id")
-    @Expose
-    private Object subSubCatId;
     @SerializedName("brand")
     @Expose
     private String brand;
@@ -66,9 +65,9 @@ public class ProductData {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
-    @SerializedName("updated_at")
+    @SerializedName("rate")
     @Expose
-    private String updatedAt;
+    private List<Rate> rate = null;
 
     public String getId() {
         return id;
@@ -92,14 +91,6 @@ public class ProductData {
 
     public void setSubCatId(String subCatId) {
         this.subCatId = subCatId;
-    }
-
-    public Object getSubSubCatId() {
-        return subSubCatId;
-    }
-
-    public void setSubSubCatId(Object subSubCatId) {
-        this.subSubCatId = subSubCatId;
     }
 
     public String getBrand() {
@@ -238,12 +229,11 @@ public class ProductData {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
+    public List<Rate> getRate() {
+        return rate;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setRate(List<Rate> rate) {
+        this.rate = rate;
     }
-
 }

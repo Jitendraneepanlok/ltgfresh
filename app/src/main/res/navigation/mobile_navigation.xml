@@ -70,10 +70,22 @@
 
     </fragment>
 
+
     <fragment
         android:id="@+id/nav_sub_category"
         android:label="@string/my_shop"
         android:name="com.ltg.ltgfresh.Fragments.SubCategoryFragment"
         tools:layout="@layout/fragment_sub_category"/>
+
+
+   <!-- <fragment
+        android:id="@+id/nav_organic_product"
+        android:name="com.ltg.ltgfresh.NavigationDrawerActvity.ui.organicproduct.OrganicProductFragment"
+        android:label="@string/organic_products"
+        tools:layout="@layout/fragment_organic_product"/>
+
+
+-->
+
 
 </navigation>

@@ -79,7 +79,7 @@ public interface ApiInterface {
 
     //=====================  Get Shop Category Api===============================
 
-    @GET("category")
+    @GET("category/1")
     Call<ShopResponse> getCategory();
 
 

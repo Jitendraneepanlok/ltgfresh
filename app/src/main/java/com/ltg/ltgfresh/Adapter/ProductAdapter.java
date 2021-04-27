@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.ltg.ltgfresh.Pojo.ProductData;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
+import com.ltg.ltgfresh.Pojo.Rate;
 import com.ltg.ltgfresh.R;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
@@ -63,13 +64,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     public void onBindViewHolder(final ProductAdapter.MyViewHolder holder, int position) {
         ProductData productData = sellingSoldDataResponse.getProducts().get(position);
         holder.title.setText(productData.getName());
-
+        holder.price.setText(mContext.getResources().getString(R.string.Rs)+" "+productData.getRate().get(0).getPrice());
         Glide.with(mContext)
                 .load(productData.getThumbnail())
                 .into(holder.thumbnail);
         // here pass the product id with product item position
         Bundle bundle = new Bundle();
         bundle.putString("Product_ID", sellingSoldDataResponse.getProducts().get(position).getId());
+        bundle.putString("Price", productData.getRate().get(0).getPrice());
+
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
