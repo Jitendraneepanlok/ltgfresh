@@ -3,6 +3,8 @@ package com.ltg.ltgfresh.Pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class SingleProductData {
 
     @SerializedName("id")
@@ -14,9 +16,6 @@ public class SingleProductData {
     @SerializedName("sub_cat_id")
     @Expose
     private String subCatId;
-    @SerializedName("sub_sub_cat_id")
-    @Expose
-    private Object subSubCatId;
     @SerializedName("brand")
     @Expose
     private String brand;
@@ -41,6 +40,9 @@ public class SingleProductData {
     @SerializedName("price")
     @Expose
     private Object price;
+    @SerializedName("actual_price")
+    @Expose
+    private String actualPrice;
     @SerializedName("description")
     @Expose
     private String description;
@@ -65,9 +67,9 @@ public class SingleProductData {
     @SerializedName("created_at")
     @Expose
     private String createdAt;
-    @SerializedName("updated_at")
+    @SerializedName("rate")
     @Expose
-    private String updatedAt;
+    private List<SingleProductRate> rate = null;
 
     public String getId() {
         return id;
@@ -91,14 +93,6 @@ public class SingleProductData {
 
     public void setSubCatId(String subCatId) {
         this.subCatId = subCatId;
-    }
-
-    public Object getSubSubCatId() {
-        return subSubCatId;
-    }
-
-    public void setSubSubCatId(Object subSubCatId) {
-        this.subSubCatId = subSubCatId;
     }
 
     public String getBrand() {
@@ -165,6 +159,14 @@ public class SingleProductData {
         this.price = price;
     }
 
+    public String getActualPrice() {
+        return actualPrice;
+    }
+
+    public void setActualPrice(String actualPrice) {
+        this.actualPrice = actualPrice;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -229,12 +231,12 @@ public class SingleProductData {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
+    public List<SingleProductRate> getRate() {
+        return rate;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setRate(List<SingleProductRate> rate) {
+        this.rate = rate;
     }
 
 }

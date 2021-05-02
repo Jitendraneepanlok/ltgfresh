@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private SessionManager sessionManager;
     AppCompatTextView tvname, tv_address;
     static String result = "";
-    AppCompatImageView img_profile;
+    AppCompatImageView img_profile,img_cart;
     String name;
     NavController navController;
     private ProgressDialog pDialog;
@@ -98,6 +98,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_homeFragment_to_profileFragment);
+            }
+        });
+
+
+        img_cart = (AppCompatImageView) findViewById(R.id.img_cart);
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_homeFragment_to_cartViewFragment);
             }
         });
 

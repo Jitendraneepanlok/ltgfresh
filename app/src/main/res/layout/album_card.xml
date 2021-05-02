@@ -63,6 +63,7 @@
                 android:background="@color/purple_500"
                 android:gravity="center"
                 android:paddingTop="@dimen/_5sdp"
+                android:id="@+id/btn_addtocart"
                 android:paddingBottom="@dimen/_5sdp"
                 android:text="Add To Cart"
                 android:textColor="@color/white"

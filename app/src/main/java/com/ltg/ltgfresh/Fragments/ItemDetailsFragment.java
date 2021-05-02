@@ -39,7 +39,7 @@ import retrofit2.Callback;
 public class ItemDetailsFragment extends Fragment {
     private NavController navController;
     AppCompatButton btn_addtocart, btn_buynow;
-    String Product_ID,Price;
+    String Product_ID;
     private ProgressDialog pDialog;
     AppCompatTextView tv_title_name, tv_price, tv_description, tv_benefite, tv_disclimer, tv_review;
     AppCompatImageView img_product;
@@ -57,7 +57,6 @@ public class ItemDetailsFragment extends Fragment {
 
         // Here get product ID from Home page Selected product item from list
         Product_ID = getArguments().getString("Product_ID");
-        Price = getArguments().getString("Price");
 
         initView();
         getSingleProductDetails();
@@ -68,7 +67,6 @@ public class ItemDetailsFragment extends Fragment {
 
         tv_title_name = (AppCompatTextView) view.findViewById(R.id.tv_title_name);
         tv_price = (AppCompatTextView) view.findViewById(R.id.tv_price);
-        tv_price.setText(Price);
         tv_description = (AppCompatTextView) view.findViewById(R.id.tv_description);
         tv_benefite = (AppCompatTextView) view.findViewById(R.id.tv_benefite);
         tv_disclimer = (AppCompatTextView) view.findViewById(R.id.tv_disclimer);
@@ -115,6 +113,7 @@ public class ItemDetailsFragment extends Fragment {
                         Toast.makeText(getActivity(), String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
 
                         tv_title_name.setText(Html.fromHtml(response.body().getProducts().get(0).getName()));
+                        tv_price.setText(response.body().getProducts().get(0).getRate().get(0).getPrice());
                         tv_description.setText(Html.fromHtml(response.body().getProducts().get(0).getDescription()));
                         tv_benefite.setText(Html.fromHtml(response.body().getProducts().get(0).getBenefits()));
                         tv_disclimer.setText(Html.fromHtml(response.body().getProducts().get(0).getDisclaimer()));

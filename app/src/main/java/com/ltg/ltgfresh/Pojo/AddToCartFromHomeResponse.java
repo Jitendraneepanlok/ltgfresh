@@ -1,18 +1,16 @@
 package com.ltg.ltgfresh.Pojo;
 
-import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SingleProductResponse {
+public class AddToCartFromHomeResponse {
 
     @SerializedName("status")
     @Expose
     private Boolean status;
-    @SerializedName("products")
+    @SerializedName("message")
     @Expose
-    private List<SingleProductData> products = null;
+    private String message;
 
     public Boolean getStatus() {
         return status;
@@ -22,11 +20,11 @@ public class SingleProductResponse {
         this.status = status;
     }
 
-    public List<SingleProductData> getProducts() {
-        return products;
+    public String getMessage() {
+        return message;
     }
 
-    public void setProducts(List<SingleProductData> products) {
-        this.products = products;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

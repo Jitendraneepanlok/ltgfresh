@@ -44,14 +44,29 @@
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold" />
 
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_cart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="216dp"
+                    android:layout_marginLeft="210dp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:src="@drawable/ic_cart" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_cart_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="right|end|top"
+                    android:layout_marginLeft="225dp"
+                    android:background="@drawable/circle_shape"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_profile"

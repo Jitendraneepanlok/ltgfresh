@@ -21,8 +21,18 @@
             app:destination="@id/nav_profile"
             app:exitAnim="@anim/nav_default_exit_anim"/>
 
+        <action
+            android:id="@+id/action_homeFragment_to_cartViewFragment"
+            app:destination="@id/nav_cart_view"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_cart_view"
+        android:name="com.ltg.ltgfresh.Fragments.CartViewFragment"
+        android:label="@string/cart_view"
+        tools:layout="@layout/fragment_cart_view"/>
 
     <fragment
         android:id="@+id/nav_profile"

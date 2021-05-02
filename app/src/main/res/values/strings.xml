@@ -40,5 +40,7 @@
     <string name="logout_text">Are you sure do you want to logged out ?</string>
     <string name="yes">Yes</string>
     <string name="organic_products">Organic Products</string>
+    <string name="cart_view">CartView</string>
+    <string name="place_order">Place Order</string>
 
 </resources>

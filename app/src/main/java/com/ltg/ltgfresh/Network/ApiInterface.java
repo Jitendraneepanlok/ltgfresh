@@ -1,6 +1,8 @@
 package com.ltg.ltgfresh.Network;
 
+import com.ltg.ltgfresh.Pojo.AddToCartFromHomeResponse;
 import com.ltg.ltgfresh.Pojo.BannerResponse;
+import com.ltg.ltgfresh.Pojo.CartListResponse;
 import com.ltg.ltgfresh.Pojo.ForgetPasswordResponse;
 import com.ltg.ltgfresh.Pojo.LoginResponse;
 import com.ltg.ltgfresh.Pojo.LogoutResponse;
@@ -92,4 +94,17 @@ public interface ApiInterface {
 
     @GET("banner")
     Call<BannerResponse> getBanner();
+
+
+    //=====================  AddToCart From Home Api===============================
+    @FormUrlEncoded
+    @POST("addcart")
+    Call<AddToCartFromHomeResponse> addToCart(@Field("product_id") String product_Id,
+                                              @Field("user_id") String user_Id,
+                                              @Field("qty") String quantity);
+
+    //=====================  Get CartList Api===============================
+
+    @GET("cartlist?")
+    Call<CartListResponse> getcartList(@Query("user_id") String User_Id);
 }
