@@ -15,21 +15,38 @@
         android:paddingTop="@dimen/_4sdp"
         android:paddingBottom="@dimen/_4sdp">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/edittext_style">
 
-        <SearchView
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_margin="@dimen/_5sdp"
-            android:background="@drawable/edittext_style"
+            android:inputType="text"
+            android:singleLine="true"
             android:backgroundTint="@color/white"
-            android:filterTouchesWhenObscured="false"
-            android:focusable="false"
-            android:iconifiedByDefault="false"
-            android:queryBackground="@color/white"
-            android:queryHint="Search Here" />
+             android:hint="@string/Search"
+            android:textColorHint="@color/black"
+            android:layout_marginRight="@dimen/_40sdp"
+            android:paddingLeft="@dimen/_10sdp"/>
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="315dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_centerVertical="true"
+            android:id="@+id/img_search"
+            android:layout_toRightOf="@+id/searchView"
+            android:src="@drawable/ic_search" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

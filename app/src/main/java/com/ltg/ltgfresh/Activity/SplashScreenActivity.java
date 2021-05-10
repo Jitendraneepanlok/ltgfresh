@@ -43,8 +43,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-    //    OpenLocationPermission();
-        sessionManager = new SessionManager(SplashScreenActivity.this);
+        OpenLocationPermission();
+       /* sessionManager = new SessionManager(SplashScreenActivity.this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -63,9 +63,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
             }
         }, 3000);
+    }*/
     }
-
-  /*  private void OpenLocationPermission() {
+    private void OpenLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED) {
@@ -157,6 +157,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             poke.setData(Uri.parse("3"));
             sendBroadcast(poke);
         }
-    }*/
+    }
 
 }

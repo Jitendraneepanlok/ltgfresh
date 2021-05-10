@@ -28,7 +28,7 @@
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_profile"
+                    android:id="@+id/profile_img"
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_90sdp"
                     android:layout_centerHorizontal="true"
@@ -37,7 +37,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_profile"
+                    android:layout_below="@+id/profile_img"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/arialmt"
                     android:gravity="center"

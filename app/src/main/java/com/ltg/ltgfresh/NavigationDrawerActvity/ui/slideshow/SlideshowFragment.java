@@ -20,15 +20,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ltg.ltgfresh.Activity.CategoryActivity;
+import com.ltg.ltgfresh.Adapter.NewShopAdapter;
 import com.ltg.ltgfresh.Adapter.ProductAdapter;
 import com.ltg.ltgfresh.Adapter.ShopAdapter;
+import com.ltg.ltgfresh.Helper.ChildView;
+import com.ltg.ltgfresh.Helper.Genre;
+import com.ltg.ltgfresh.Helper.HeaderView;
+import com.ltg.ltgfresh.Helper.MyRecyclerListener;
+import com.ltg.ltgfresh.NavigationDrawerActvity.MainActivity;
 import com.ltg.ltgfresh.Network.ApiClient;
 import com.ltg.ltgfresh.Network.ApiInterface;
+import com.ltg.ltgfresh.Pojo.Category;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
 import com.ltg.ltgfresh.Pojo.ShopResponse;
+import com.ltg.ltgfresh.Pojo.SubCategory;
 import com.ltg.ltgfresh.R;
+import com.mindorks.placeholderview.ExpandablePlaceHolderView;
+import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,32 +53,34 @@ import retrofit2.Callback;
 public class SlideshowFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
-    RecyclerView shop_recycler;
-    ShopAdapter adapter;
     View root;
+    private Map<String, List<ShopResponse>> categoryMap;
+    private List<ShopResponse> shopList;
+    private ExpandablePlaceHolderView expandablePlaceHolderView;
     ProgressDialog pDialog;
+    String Category_No;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       // slideshowViewModel = new ViewModelProvider(this).get(SlideshowViewModel.class);
         root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
-        initView();
+        Category_No = getArguments().getString("Category_No");
+        Log.e("Category_No", "" +  MainActivity.value);
+
         getShopList();
-        getOrganicProduct();
+        initView();
 
         return root;
     }
+
     private void initView() {
-        shop_recycler = (RecyclerView)root.findViewById(R.id.shop_recycler);
-        LinearLayoutManager verticalLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        shop_recycler.setLayoutManager(verticalLayoutManager);
-        shop_recycler.setItemAnimator(new DefaultItemAnimator());
+        shopList = new ArrayList<>();
+        categoryMap = new HashMap<>();
+        expandablePlaceHolderView = (ExpandablePlaceHolderView) root.findViewById(R.id.expandablePlaceHolder);
+        expandablePlaceHolderView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View view) {
+                Toast.makeText(getActivity(), "Clixcked", view.getId()).show();
+            }
+        });
     }
 
     private void getShopList() {
@@ -72,16 +90,14 @@ public class SlideshowFragment extends Fragment {
         pDialog.show();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ShopResponse> call = apiService.getCategory();
+        Call<ShopResponse> call = apiService.getCategory(MainActivity.value);
         try {
             call.enqueue(new Callback<ShopResponse>() {
                 @Override
                 public void onResponse(Call<ShopResponse> call, retrofit2.Response<ShopResponse> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(getActivity(), String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
-                        adapter = new ShopAdapter(getActivity(),response.body());
-                        shop_recycler.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+                        getHeaderAndChild(response.body().getCategory());
                         pDialog.dismiss();
 
                     } else {
@@ -106,15 +122,22 @@ public class SlideshowFragment extends Fragment {
                     pDialog.dismiss();
                 }
             });
+
         } catch (Exception ex) {
             Log.e("LoginFailer", "" + ex);
             Toast.makeText(getActivity(), "" + ex, Toast.LENGTH_SHORT).show();
             pDialog.dismiss();
         }
-
     }
 
-    private void getOrganicProduct() {
+    private void getHeaderAndChild(List<Category> category) {
 
+        for (Category shopResponse : category) {
+            expandablePlaceHolderView.addView(new HeaderView(getActivity(), shopResponse.getName(), shopResponse.getImage()));
+
+            for (SubCategory movie : shopResponse.getSubCategory()) {
+                expandablePlaceHolderView.addView(new ChildView(getActivity(), movie.getName()));
+            }
+        }
     }
 }

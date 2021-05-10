@@ -1,5 +1,7 @@
 package com.ltg.ltgfresh.Pojo;
 
+import android.os.Parcel;
+
 import java.util.List;
 
 import com.google.gson.annotations.Expose;

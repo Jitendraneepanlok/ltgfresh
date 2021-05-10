@@ -9,10 +9,36 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.ltg.ltgfresh.Pojo.CartCountItem;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 public class Utility {
+    private static CartCountItem obj = null;
+    public static Integer grandtotal=0;
+
+    public static CartCountItem getCartCountItem() {
+
+        if (obj == null) {
+            obj = new CartCountItem();
+            ArrayList<String> productss = new ArrayList<String>();
+            obj.setProduct_Id(productss);
+            return obj;
+        } else {
+            return obj;
+        }
+
+    }
+
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

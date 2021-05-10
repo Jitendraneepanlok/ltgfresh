@@ -29,9 +29,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ltg.ltgfresh.Activity.CategoryActivity;
 import com.ltg.ltgfresh.Activity.LoginActivity;
 import com.ltg.ltgfresh.Activity.SplashScreenActivity;
 import com.ltg.ltgfresh.Adapter.ProductAdapter;
+import com.ltg.ltgfresh.Helper.UpdateInterface;
 import com.ltg.ltgfresh.Network.ApiClient;
 import com.ltg.ltgfresh.Network.ApiInterface;
 import com.ltg.ltgfresh.Pojo.LogoutResponse;
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private SessionManager sessionManager;
     AppCompatTextView tvname, tv_address;
     static String result = "";
-    AppCompatImageView img_profile,img_cart;
+    AppCompatImageView img_profile, img_cart;
     String name;
     NavController navController;
     private ProgressDialog pDialog;
@@ -78,20 +80,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     Toolbar toolbar;
     String Id;
     CircleImageView img_user_profile;
+    TextView tv_cart_count;
+    public static String value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-/*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.purple_700));
-        }
-*/
+        value = "1";
 
         img_profile = (AppCompatImageView) findViewById(R.id.img_profile);
         img_profile.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 navController.navigate(R.id.action_homeFragment_to_cartViewFragment);
             }
         });
+
+
+        tv_cart_count = (TextView) findViewById(R.id.tv_cart_count);
 
         sessionManager = new SessionManager(this);
         toolbar = findViewById(R.id.toolbar);
@@ -141,8 +141,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         break;
 
                     case R.id.nav_organic:
-                        navController.navigate(R.id.nav_slideshow);
-
+                        value = "2";
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("Category_No",value);
+                        navController.navigate(R.id.nav_slideshow/*,bundle*/);
                         break;
 
                     case R.id.nav_logout:
@@ -177,6 +179,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         share.setData(Uri.parse(share_url));
                         startActivity(share);
                         break;
+
+
                 }
 
                 NavigationUI.onNavDestinationSelected(item, navController);
@@ -425,6 +429,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             pDialog.dismiss();
         }
 
-
     }
+
 }

@@ -9,8 +9,10 @@ import com.ltg.ltgfresh.Pojo.LogoutResponse;
 import com.ltg.ltgfresh.Pojo.OffersResponse;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
 import com.ltg.ltgfresh.Pojo.RegistrationResponse;
+import com.ltg.ltgfresh.Pojo.SearchResponse;
 import com.ltg.ltgfresh.Pojo.ShopResponse;
 import com.ltg.ltgfresh.Pojo.SingleProductResponse;
+import com.ltg.ltgfresh.Pojo.SubCategoryProductsResponse;
 import com.ltg.ltgfresh.Pojo.UpdateProfileResponse;
 import com.ltg.ltgfresh.Pojo.UserProfileResponse;
 
@@ -21,6 +23,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -81,8 +84,14 @@ public interface ApiInterface {
 
     //=====================  Get Shop Category Api===============================
 
-    @GET("category/1")
-    Call<ShopResponse> getCategory();
+    @GET("category/{ID}")
+    Call<ShopResponse> getCategory(@Path("ID") String Id);
+
+    //=====================  Get GetSubCategory to Category Products Api===============================
+    @FormUrlEncoded
+    @POST("catsubproduct")
+    Call<SubCategoryProductsResponse> GetSubCategoryProducts(@Field("type") String Type,
+                                                             @Field("id") String Id);
 
 
     //=====================  Get Offers Api===============================
@@ -107,4 +116,10 @@ public interface ApiInterface {
 
     @GET("cartlist?")
     Call<CartListResponse> getcartList(@Query("user_id") String User_Id);
+
+    //=====================  Get Search Product Api===============================
+
+    @GET("search_products?")
+    Call<SearchResponse> getSearchProducts(@Query("name") String Name);
+
 }

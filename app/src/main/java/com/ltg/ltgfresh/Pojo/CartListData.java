@@ -3,35 +3,104 @@ package com.ltg.ltgfresh.Pojo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CartListData {
+import java.util.List;
 
+public class CartListData {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("product_id")
+    @SerializedName("cat_id")
     @Expose
-    private String productId;
-    @SerializedName("user_id")
+    private String catId;
+    @SerializedName("sub_cat_id")
     @Expose
-    private String userId;
-    @SerializedName("qty")
+    private String subCatId;
+    @SerializedName("brand")
     @Expose
-    private String qty;
-    @SerializedName("created_at")
+    private String brand;
+    @SerializedName("product_type")
     @Expose
-    private String createdAt;
+    private String productType;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("slug")
+    @Expose
+    private String slug;
+    @SerializedName("name1")
+    @Expose
+    private String name1;
+    @SerializedName("name2")
+    @Expose
+    private String name2;
+    @SerializedName("thumbnail")
+    @Expose
+    private String thumbnail;
+    @SerializedName("price")
+    @Expose
+    private Object price;
+    @SerializedName("actual_price")
+    @Expose
+    private Object actualPrice;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("benefits")
+    @Expose
+    private String benefits;
+    @SerializedName("reviews")
+    @Expose
+    private String reviews;
+    @SerializedName("disclaimer")
+    @Expose
+    private String disclaimer;
+    @SerializedName("total_sel")
+    @Expose
+    private String totalSel;
+    @SerializedName("vendor_id")
+    @Expose
+    private String vendorId;
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("product_name")
+    @SerializedName("created_at")
     @Expose
-    private String productName;
-    @SerializedName("product_image")
-    @Expose
-    private String productImage;
-    @SerializedName("product_price")
-    @Expose
-    private Object productPrice;
+    private String createdAt;
+
+
+    public Boolean getAddToCart() {
+        return addToCart;
+    }
+
+    public void setAddToCart(Boolean addToCart) {
+        this.addToCart = addToCart;
+    }
+
+    public Integer getUserEnterQuantity() {
+        return userEnterQuantity;
+    }
+
+    public void setUserEnterQuantity(Integer userEnterQuantity) {
+        this.userEnterQuantity = userEnterQuantity;
+    }
+
+    private transient Boolean addToCart;
+    private  transient Integer userEnterQuantity = 1;
+    private transient Integer defalutQuantity = 1;
+    private  transient Integer totalprice=0;
+
+    public Integer getDefalutQuantity() {
+        return defalutQuantity;
+    }
+
+    public void setDefalutQuantity(Integer defalutQuantity) {
+        this.defalutQuantity = defalutQuantity;
+    }
+
+
+   @SerializedName("rate")
+   @Expose
+    private List<CartListRate> rate = null;
 
     public String getId() {
         return id;
@@ -41,36 +110,140 @@ public class CartListData {
         this.id = id;
     }
 
-    public String getProductId() {
-        return productId;
+    public String getCatId() {
+        return catId;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setCatId(String catId) {
+        this.catId = catId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getSubCatId() {
+        return subCatId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setSubCatId(String subCatId) {
+        this.subCatId = subCatId;
     }
 
-    public String getQty() {
-        return qty;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setQty(String qty) {
-        this.qty = qty;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getProductType() {
+        return productType;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getName1() {
+        return name1;
+    }
+
+    public void setName1(String name1) {
+        this.name1 = name1;
+    }
+
+    public String getName2() {
+        return name2;
+    }
+
+    public void setName2(String name2) {
+        this.name2 = name2;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public Object getPrice() {
+        return price;
+    }
+
+    public void setPrice(Object price) {
+        this.price = price;
+    }
+
+    public Object getActualPrice() {
+        return actualPrice;
+    }
+
+    public void setActualPrice(Object actualPrice) {
+        this.actualPrice = actualPrice;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getBenefits() {
+        return benefits;
+    }
+
+    public void setBenefits(String benefits) {
+        this.benefits = benefits;
+    }
+
+    public String getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(String reviews) {
+        this.reviews = reviews;
+    }
+
+    public String getDisclaimer() {
+        return disclaimer;
+    }
+
+    public void setDisclaimer(String disclaimer) {
+        this.disclaimer = disclaimer;
+    }
+
+    public String getTotalSel() {
+        return totalSel;
+    }
+
+    public void setTotalSel(String totalSel) {
+        this.totalSel = totalSel;
+    }
+
+    public String getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(String vendorId) {
+        this.vendorId = vendorId;
     }
 
     public String getStatus() {
@@ -81,27 +254,27 @@ public class CartListData {
         this.status = status;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public List<CartListRate> getRate() {
+        return rate;
     }
 
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
+    public void setRate(List<CartListRate> rate) {
+        this.rate = rate;
     }
 
-    public Object getProductPrice() {
-        return productPrice;
+    public Integer getTotalprice() {
+        return totalprice;
     }
 
-    public void setProductPrice(Object productPrice) {
-        this.productPrice = productPrice;
+    public void setTotalprice(Integer totalprice) {
+        this.totalprice = totalprice;
     }
 }

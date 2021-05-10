@@ -19,10 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.ltg.ltgfresh.Activity.LoginActivity;
+import com.ltg.ltgfresh.Helper.UpdateInterface;
+import com.ltg.ltgfresh.Helper.Utility;
 import com.ltg.ltgfresh.NavigationDrawerActvity.MainActivity;
 import com.ltg.ltgfresh.Network.ApiClient;
 import com.ltg.ltgfresh.Network.ApiInterface;
 import com.ltg.ltgfresh.Pojo.AddToCartFromHomeResponse;
+import com.ltg.ltgfresh.Pojo.CartCountItem;
 import com.ltg.ltgfresh.Pojo.LoginResponse;
 import com.ltg.ltgfresh.Pojo.ProductData;
 import com.ltg.ltgfresh.Pojo.ProductResponse;
@@ -32,11 +35,15 @@ import com.ltg.ltgfresh.SharedPrefrences.SessionManager;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
 
+    private final UpdateInterface listner;
     private Context mContext;
     private ProductResponse sellingSoldDataResponse;
     LayoutInflater inflter;
@@ -44,10 +51,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     private ProgressDialog pDialog;
     private SessionManager sessionManager;
 
-    public ProductAdapter(Context applicationContext, ProductResponse sellingSoldDataResponse) {
+    public ProductAdapter(Context applicationContext, ProductResponse sellingSoldDataResponse, UpdateInterface listner) {
         this.mContext = applicationContext;
         this.sellingSoldDataResponse = sellingSoldDataResponse;
         inflter = (LayoutInflater.from(applicationContext));
+        this.listner = listner;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -83,7 +91,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     public void onBindViewHolder(final ProductAdapter.MyViewHolder holder, int position) {
         ProductData productData = sellingSoldDataResponse.getProducts().get(position);
         holder.title.setText(productData.getName());
-        holder.price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getRate().get(0).getPrice());
+        if (productData.getRate().size()>0){
+            holder.price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getRate().get(0).getPrice());
+        }
         Glide.with(mContext)
                 .load(productData.getThumbnail())
                 .into(holder.thumbnail);
@@ -102,6 +112,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         holder.btn_addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CartCountItem dcd = Utility.getCartCountItem();
+                if (!dcd.getProduct_Id().contains(sellingSoldDataResponse.getProducts().get(position).getId())) {
+                    ArrayList<String> list = dcd.getProduct_Id();
+                    list.add(sellingSoldDataResponse.getProducts().get(position).getId());
+                    dcd.setProduct_Id(list);
+                }
+                listner.recyclerviewOnUpdate(dcd.getProduct_Id().size());
                 CallAddCartApi();
             }
         });
@@ -109,9 +126,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
 
     private void CallAddCartApi() {
         sessionManager = new SessionManager(mContext);
-
         String Id = sessionManager.getUserData(SessionManager.ID);
-
         pDialog = new ProgressDialog(mContext);
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
@@ -124,7 +139,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 @Override
                 public void onResponse(Call<AddToCartFromHomeResponse> call, retrofit2.Response<AddToCartFromHomeResponse> response) {
                     if (response.isSuccessful()) {
-                        Log.e("Login_Response", "" + response.body().toString());
+                        Log.e("cart_Response", "" + response.body().toString());
                         Toast.makeText(mContext, response.body().getMessage(), Toast.LENGTH_SHORT).show();
 
 

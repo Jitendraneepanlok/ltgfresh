@@ -12,7 +12,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/TOLL_FREE"
         android:layout_margin="@dimen/_5sdp"
-        android:id="@+id/cart_recycler"/>
+        android:id="@+id/cart_recycler"
+        android:paddingBottom="@dimen/_10sdp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_30sdp"
+        android:layout_below="@+id/cart_recycler"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +39,7 @@
             android:textStyle="bold"
             android:background="@color/white"
             android:layout_marginLeft="-200dp"
-            android:id="@+id/btn_addtocart"/>
+            android:id="@+id/btn_addprice"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
@@ -44,7 +52,7 @@
             android:textStyle="bold"
             android:background="@color/red"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/btn_addtocart"
+            android:layout_toRightOf="@+id/btn_addprice"
             android:id="@+id/btn_place_order"/>
 
 

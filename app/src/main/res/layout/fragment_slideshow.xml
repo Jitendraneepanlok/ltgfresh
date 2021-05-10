@@ -7,11 +7,11 @@
     android:orientation="vertical"
     tools:context=".NavigationDrawerActvity.ui.slideshow.SlideshowFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.mindorks.placeholderview.ExpandablePlaceHolderView
+        android:id="@+id/expandablePlaceHolder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        android:id="@+id/shop_recycler"/>
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_5sdp" />
 
 
 </RelativeLayout>

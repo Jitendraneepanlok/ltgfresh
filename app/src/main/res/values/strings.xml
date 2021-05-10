@@ -42,5 +42,10 @@
     <string name="organic_products">Organic Products</string>
     <string name="cart_view">CartView</string>
     <string name="place_order">Place Order</string>
+    <string name="Search">Search Here</string>
+    <string name="payment">Payment</string>
+    <string name="Cash">Cash On Payment</string>
+    <string name="payyou">Pay You Money</string>
+    <string name="oher">Others</string>
 
 </resources>

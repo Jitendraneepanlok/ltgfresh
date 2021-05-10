@@ -24,6 +24,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -69,8 +70,8 @@ public class ProfileFragment extends Fragment {
     View view;
     private NavController navController;
     AppCompatTextView tv_text, tv_edit_image;
-    AppCompatImageView img_back;
-    CircleImageView img_profile;
+    AppCompatImageView img_back,img_cart,img_profile;
+    CircleImageView profile_img;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private String userChoosenTask;
     Bitmap getImage;
@@ -81,6 +82,7 @@ public class ProfileFragment extends Fragment {
     String First_Name, Last_Name, Phone, Email, Address,User_ID,GalleryImagetemp,CameraImagetemp;
     private ProgressDialog pDialog;
     private SessionManager sessionManager;
+    Toolbar toolbar;
 
     @Nullable
     @Override
@@ -91,7 +93,23 @@ public class ProfileFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         sessionManager = new SessionManager(getActivity());
         User_ID = sessionManager.getUserData(SessionManager.ID);
+        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
+        img_cart = (AppCompatImageView)toolbar.findViewById(R.id.img_cart);
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_homeFragment_to_cartViewFragment);
+            }
+        });
+
+        img_profile = (AppCompatImageView)toolbar.findViewById(R.id.img_profile);
+        img_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_homeFragment_to_profileFragment);
+            }
+        });
         initView();
         return view;
     }
@@ -122,7 +140,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        img_profile = (CircleImageView) view.findViewById(R.id.img_profile);
+        profile_img = (CircleImageView) view.findViewById(R.id.profile_img);
         tv_edit_image = (AppCompatTextView) view.findViewById(R.id.tv_edit_image);
         tv_edit_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,7 +253,7 @@ public class ProfileFragment extends Fragment {
         Log.e("patheee", destination.getAbsolutePath() + " check" + destination.getPath());
         CameraFilePath = Uri.parse(destination.getAbsolutePath() + " check" + destination.getPath());
 
-        img_profile.setImageBitmap(getImage);
+        profile_img.setImageBitmap(getImage);
 
     }
 
@@ -248,7 +266,7 @@ public class ProfileFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-        img_profile.setImageBitmap(getImage);
+        profile_img.setImageBitmap(getImage);
 
 
     }

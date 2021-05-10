@@ -32,7 +32,20 @@
         android:id="@+id/nav_cart_view"
         android:name="com.ltg.ltgfresh.Fragments.CartViewFragment"
         android:label="@string/cart_view"
-        tools:layout="@layout/fragment_cart_view"/>
+        tools:layout="@layout/fragment_cart_view">
+
+        <action
+            android:id="@+id/action_cartViewFragment_to_paymentFragment"
+            app:destination="@id/nav_payment"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_payment"
+        android:name="com.ltg.ltgfresh.Fragments.PaymentFragment"
+        android:label="@string/payment"
+        tools:layout="@layout/fragment_payment"/>
 
     <fragment
         android:id="@+id/nav_profile"
@@ -48,13 +61,9 @@
 
         <argument
             android:name="product_ID"
-            app:argType="string"
-            />
-
+            app:argType="string" />
 
     </fragment>
-
-
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -69,7 +78,7 @@
         tools:layout="@layout/fragment_slideshow">
 
         <argument
-            android:name="Sub_Category"
+            android:name="Category_No"
             app:argType="string"
             />
 
@@ -85,17 +94,14 @@
         android:id="@+id/nav_sub_category"
         android:label="@string/my_shop"
         android:name="com.ltg.ltgfresh.Fragments.SubCategoryFragment"
-        tools:layout="@layout/fragment_sub_category"/>
+        tools:layout="@layout/fragment_sub_category">
 
+        <action
+            android:id="@+id/action_homeFragment_to_itemDetailFragment"
+            app:destination="@id/nav_item_details"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
 
-   <!-- <fragment
-        android:id="@+id/nav_organic_product"
-        android:name="com.ltg.ltgfresh.NavigationDrawerActvity.ui.organicproduct.OrganicProductFragment"
-        android:label="@string/organic_products"
-        tools:layout="@layout/fragment_organic_product"/>
-
-
--->
+    </fragment>
 
 
 </navigation>

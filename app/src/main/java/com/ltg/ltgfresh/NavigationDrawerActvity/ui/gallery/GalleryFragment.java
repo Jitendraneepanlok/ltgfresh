@@ -14,9 +14,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,10 +49,16 @@ public class GalleryFragment extends Fragment {
     ProgressDialog pDialog;
     View root;
     OffersAdapter adapter;
+    AppCompatImageView img_cart,img_profile;
+    Toolbar toolbar;
     RecyclerView offers_recycler;
+    private NavController navController;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel = new ViewModelProvider(this).get(GalleryViewModel.class);
         root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
        /* final TextView textView = root.findViewById(R.id.text_gallery);
         galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -56,6 +66,23 @@ public class GalleryFragment extends Fragment {
                 textView.setText(s);
             }
         });*/
+        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+
+        img_cart = (AppCompatImageView)toolbar.findViewById(R.id.img_cart);
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_homeFragment_to_cartViewFragment);
+            }
+        });
+
+        img_profile = (AppCompatImageView)toolbar.findViewById(R.id.img_profile);
+        img_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_homeFragment_to_profileFragment);
+            }
+        });
         initView();
         getOffers();
         return root;
