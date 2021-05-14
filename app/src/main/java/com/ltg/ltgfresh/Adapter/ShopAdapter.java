@@ -56,6 +56,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
     private ProgressDialog pDialog;
     private SessionManager sessionManager;
     private FragmentCommunication mCommunicator;
+    private String QUANTITY;
+
 
     public ShopAdapter(Context applicationContext, SubCategoryProductsResponse sellingSoldDataResponse, UpdateInterface listner, FragmentCommunication communication) {
         this.mContext = applicationContext;
@@ -131,7 +133,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
                 }
                 listner.recyclerviewOnUpdate(dcd.getProduct_Id().size());
                 CallAddCartApi();*/
-
                 holder.rl_increase_quantity.setVisibility(View.VISIBLE);
                 holder.btn_addtocart.setVisibility(View.INVISIBLE);
             }
@@ -142,12 +143,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
             public void onClick(View v) {
                 if (productData.getUserEnterQuantity() > 1) {
                     productData.setUserEnterQuantity(productData.getUserEnterQuantity() - 1);
-                    holder.text_quantity.setText(productData.getUserEnterQuantity().toString());
+//                    holder.text_quantity.setText(productData.getUserEnterQuantity().toString());
+                    QUANTITY = productData.getUserEnterQuantity().toString();
+                    holder.text_quantity.setText(QUANTITY);
                     productData.setTotalprice(productData.getTotalprice()-Integer.parseInt(productData.getRate().get(0).getPrice()));
                     Utility.grandtotal=Utility.grandtotal-Integer.parseInt(productData.getRate().get(0).getPrice());
-
                     holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getUserEnterQuantity() *Integer.parseInt(productData.getRate().get(0).getPrice()));
                     mCommunicator.respond(0,Utility.grandtotal);
+                    CallAddCartApi();
 
                 }
             }
@@ -159,17 +162,16 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
             public void onClick(View v) {
                 if (productData.getUserEnterQuantity() <= Integer.parseInt(productData.getRate().get(0).getQuantity()))
                     productData.setUserEnterQuantity(productData.getUserEnterQuantity() + 1);
-                holder.text_quantity.setText(productData.getUserEnterQuantity().toString());
+//                holder.text_quantity.setText(productData.getUserEnterQuantity().toString());
+                QUANTITY = productData.getUserEnterQuantity().toString();
+                holder.text_quantity.setText(QUANTITY);
                 productData.setTotalprice(productData.getTotalprice()+Integer.parseInt(productData.getRate().get(0).getPrice()));
                 Utility.grandtotal=Utility.grandtotal+Integer.parseInt(productData.getRate().get(0).getPrice());
                 holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getUserEnterQuantity() *Integer.parseInt(productData.getRate().get(0).getPrice()));
-
                 mCommunicator.respond(0,Utility.grandtotal);
+                CallAddCartApi();
             }
-
         });
-
-
     }
 
     private void CallAddCartApi() {
@@ -181,7 +183,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
         pDialog.show();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<AddToCartFromHomeResponse> call = apiService.addToCart(sellingSoldDataResponse.getProducts().get(0).getRate().get(0).getProductId(), Id, sellingSoldDataResponse.getProducts().get(0).getRate().get(0).getQuantity());
+        Call<AddToCartFromHomeResponse> call = apiService.addToCart(sellingSoldDataResponse.getProducts().get(0).getRate().get(0).getProductId(), Id, QUANTITY);
         try {
             call.enqueue(new Callback<AddToCartFromHomeResponse>() {
                 @Override

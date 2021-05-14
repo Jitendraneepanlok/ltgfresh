@@ -53,6 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     private ProgressDialog pDialog;
     private SessionManager sessionManager;
     private FragmentCommunication mCommunicator;
+    private String QUANTITY;
 
 
     public ProductAdapter(Context applicationContext, ProductResponse sellingSoldDataResponse, UpdateInterface listner, FragmentCommunication communication) {
@@ -141,13 +142,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             public void onClick(View v) {
                 if (productData.getUserEnterQuantity() > 1) {
                     productData.setUserEnterQuantity(productData.getUserEnterQuantity() - 1);
-                    holder.text_quantity.setText(productData.getUserEnterQuantity().toString());
-                    productData.setTotalprice(productData.getTotalprice()-Integer.parseInt(productData.getRate().get(0).getPrice()));
-                    Utility.grandtotal=Utility.grandtotal-Integer.parseInt(productData.getRate().get(0).getPrice());
+                    QUANTITY = productData.getUserEnterQuantity().toString();
+                    holder.text_quantity.setText(QUANTITY/*productData.getUserEnterQuantity().toString()*/);
+                    productData.setTotalprice(productData.getTotalprice() - Integer.parseInt(productData.getRate().get(0).getPrice()));
+                    Utility.grandtotal = Utility.grandtotal - Integer.parseInt(productData.getRate().get(0).getPrice());
 
-                    holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getUserEnterQuantity() *Integer.parseInt(productData.getRate().get(0).getPrice()));
-                    mCommunicator.respond(0,Utility.grandtotal);
-
+                    holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getUserEnterQuantity() * Integer.parseInt(productData.getRate().get(0).getPrice()));
+                    mCommunicator.respond(0, Utility.grandtotal);
+                    CallAddCartApi();
                 }
             }
 
@@ -158,18 +160,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             public void onClick(View v) {
                 if (productData.getUserEnterQuantity() <= Integer.parseInt(productData.getRate().get(0).getQuantity()))
                     productData.setUserEnterQuantity(productData.getUserEnterQuantity() + 1);
-                holder.text_quantity.setText(productData.getUserEnterQuantity().toString());
-                productData.setTotalprice(productData.getTotalprice()+Integer.parseInt(productData.getRate().get(0).getPrice()));
-                Utility.grandtotal=Utility.grandtotal+Integer.parseInt(productData.getRate().get(0).getPrice());
-                holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getUserEnterQuantity() *Integer.parseInt(productData.getRate().get(0).getPrice()));
+                QUANTITY = productData.getUserEnterQuantity().toString();
+                holder.text_quantity.setText(QUANTITY/*productData.getUserEnterQuantity().toString()*/);
+                productData.setTotalprice(productData.getTotalprice() + Integer.parseInt(productData.getRate().get(0).getPrice()));
+                Utility.grandtotal = Utility.grandtotal + Integer.parseInt(productData.getRate().get(0).getPrice());
+                holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getUserEnterQuantity() * Integer.parseInt(productData.getRate().get(0).getPrice()));
 
-                mCommunicator.respond(0,Utility.grandtotal);
+                mCommunicator.respond(0, Utility.grandtotal);
+                CallAddCartApi();
             }
 
         });
     }
 
     private void CallAddCartApi() {
+        Log.e("QUANTITY", "" + QUANTITY);
         sessionManager = new SessionManager(mContext);
         String Id = sessionManager.getUserData(SessionManager.ID);
         pDialog = new ProgressDialog(mContext);
@@ -178,7 +183,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         pDialog.show();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<AddToCartFromHomeResponse> call = apiService.addToCart(sellingSoldDataResponse.getProducts().get(0).getRate().get(0).getProductId(), Id, sellingSoldDataResponse.getProducts().get(0).getRate().get(0).getQuantity());
+        Call<AddToCartFromHomeResponse> call = apiService.addToCart(sellingSoldDataResponse.getProducts().get(0).getRate().get(0).getProductId(), Id, QUANTITY);
         try {
             call.enqueue(new Callback<AddToCartFromHomeResponse>() {
                 @Override

@@ -47,6 +47,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     private ProgressDialog pDialog;
     private SessionManager sessionManager;
     private FragmentCommunication mCommunicator;
+    private String QUANTITY;
+
 
 
     public SearchAdapter(Context applicationContext, SearchResponse searchResponse, UpdateInterface listner, FragmentCommunication communication) {
@@ -136,12 +138,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
             public void onClick(View v) {
                 if (searchProduct.getUserEnterQuantity() > 1) {
                     searchProduct.setUserEnterQuantity(searchProduct.getUserEnterQuantity() - 1);
-                    holder.text_quantity.setText(searchProduct.getUserEnterQuantity().toString());
+//                    holder.text_quantity.setText(searchProduct.getUserEnterQuantity().toString());
+                    QUANTITY = searchProduct.getUserEnterQuantity().toString();
+                    holder.text_quantity.setText(QUANTITY);
                     searchProduct.setTotalprice(searchProduct.getTotalprice() - Integer.parseInt(searchProduct.getRate().get(0).getPrice()));
                     Utility.grandtotal = Utility.grandtotal - Integer.parseInt(searchProduct.getRate().get(0).getPrice());
 
                     holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + searchProduct.getUserEnterQuantity() * Integer.parseInt(searchProduct.getRate().get(0).getPrice()));
                     mCommunicator.respond(0, Utility.grandtotal);
+                    CallAddCartApi();
 
                 }
             }
@@ -153,12 +158,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
             public void onClick(View v) {
                 if (searchProduct.getUserEnterQuantity() <= Integer.parseInt(searchProduct.getRate().get(0).getQuantity()))
                     searchProduct.setUserEnterQuantity(searchProduct.getUserEnterQuantity() + 1);
-                holder.text_quantity.setText(searchProduct.getUserEnterQuantity().toString());
+//                holder.text_quantity.setText(searchProduct.getUserEnterQuantity().toString());
+                QUANTITY = searchProduct.getUserEnterQuantity().toString();
+                holder.text_quantity.setText(QUANTITY);
                 searchProduct.setTotalprice(searchProduct.getTotalprice() + Integer.parseInt(searchProduct.getRate().get(0).getPrice()));
                 Utility.grandtotal = Utility.grandtotal + Integer.parseInt(searchProduct.getRate().get(0).getPrice());
                 holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + searchProduct.getUserEnterQuantity() * Integer.parseInt(searchProduct.getRate().get(0).getPrice()));
 
                 mCommunicator.respond(0, Utility.grandtotal);
+                CallAddCartApi();
             }
 
         });
@@ -175,7 +183,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         pDialog.show();
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<AddToCartFromHomeResponse> call = apiService.addToCart(searchResponse.getProducts().get(0).getRate().get(0).getProductId(), Id, searchResponse.getProducts().get(0).getRate().get(0).getQuantity());
+        Call<AddToCartFromHomeResponse> call = apiService.addToCart(searchResponse.getProducts().get(0).getRate().get(0).getProductId(), Id, QUANTITY);
         try {
             call.enqueue(new Callback<AddToCartFromHomeResponse>() {
                 @Override
