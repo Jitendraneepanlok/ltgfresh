@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.ltg.ltgfresh.Helper.FragmentCommunication;
 import com.ltg.ltgfresh.Helper.UpdateInterface;
 import com.ltg.ltgfresh.Helper.Utility;
 import com.ltg.ltgfresh.Network.ApiClient;
@@ -53,25 +55,31 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
     private NavController navController;
     private ProgressDialog pDialog;
     private SessionManager sessionManager;
+    private FragmentCommunication mCommunicator;
 
-    public ShopAdapter(Context applicationContext, SubCategoryProductsResponse sellingSoldDataResponse, UpdateInterface listner) {
+    public ShopAdapter(Context applicationContext, SubCategoryProductsResponse sellingSoldDataResponse, UpdateInterface listner, FragmentCommunication communication) {
         this.mContext = applicationContext;
+        this.mCommunicator = communication;
         this.sellingSoldDataResponse = sellingSoldDataResponse;
         inflter = (LayoutInflater.from(applicationContext));
         this.listner = listner;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, price, btn_addtocart;
+        public TextView title, text_price, btn_addtocart, text_minus, text_quantity, text_plus;
         public ImageView thumbnail;
+        public RelativeLayout rl_increase_quantity;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
-            price = (TextView) view.findViewById(R.id.price);
+            text_price = (TextView) view.findViewById(R.id.text_price);
+            text_minus = (TextView) view.findViewById(R.id.text_minus);
+            text_quantity = (TextView) view.findViewById(R.id.text_quantity);
+            text_plus = (TextView) view.findViewById(R.id.text_plus);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             btn_addtocart = (TextView) view.findViewById(R.id.btn_addtocart);
-
+            rl_increase_quantity = (RelativeLayout) view.findViewById(R.id.rl_increase_quantity);
         }
     }
 
@@ -95,7 +103,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
         SubCategoryProductsResponseProduct productData = sellingSoldDataResponse.getProducts().get(position);
         holder.title.setText(productData.getName());
         if (productData.getRate().size()>0){
-            holder.price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getRate().get(0).getPrice());
+            holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getRate().get(0).getPrice());
         }
         Glide.with(mContext)
                 .load(productData.getThumbnail())
@@ -115,16 +123,53 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
         holder.btn_addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartCountItem dcd = Utility.getCartCountItem();
+               /* CartCountItem dcd = Utility.getCartCountItem();
                 if (!dcd.getProduct_Id().contains(sellingSoldDataResponse.getProducts().get(position).getId())) {
                     ArrayList<String> list = dcd.getProduct_Id();
                     list.add(sellingSoldDataResponse.getProducts().get(position).getId());
                     dcd.setProduct_Id(list);
                 }
                 listner.recyclerviewOnUpdate(dcd.getProduct_Id().size());
-                CallAddCartApi();
+                CallAddCartApi();*/
+
+                holder.rl_increase_quantity.setVisibility(View.VISIBLE);
+                holder.btn_addtocart.setVisibility(View.INVISIBLE);
             }
         });
+
+        holder.text_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (productData.getUserEnterQuantity() > 1) {
+                    productData.setUserEnterQuantity(productData.getUserEnterQuantity() - 1);
+                    holder.text_quantity.setText(productData.getUserEnterQuantity().toString());
+                    productData.setTotalprice(productData.getTotalprice()-Integer.parseInt(productData.getRate().get(0).getPrice()));
+                    Utility.grandtotal=Utility.grandtotal-Integer.parseInt(productData.getRate().get(0).getPrice());
+
+                    holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getUserEnterQuantity() *Integer.parseInt(productData.getRate().get(0).getPrice()));
+                    mCommunicator.respond(0,Utility.grandtotal);
+
+                }
+            }
+
+        });
+
+        holder.text_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (productData.getUserEnterQuantity() <= Integer.parseInt(productData.getRate().get(0).getQuantity()))
+                    productData.setUserEnterQuantity(productData.getUserEnterQuantity() + 1);
+                holder.text_quantity.setText(productData.getUserEnterQuantity().toString());
+                productData.setTotalprice(productData.getTotalprice()+Integer.parseInt(productData.getRate().get(0).getPrice()));
+                Utility.grandtotal=Utility.grandtotal+Integer.parseInt(productData.getRate().get(0).getPrice());
+                holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + productData.getUserEnterQuantity() *Integer.parseInt(productData.getRate().get(0).getPrice()));
+
+                mCommunicator.respond(0,Utility.grandtotal);
+            }
+
+        });
+
+
     }
 
     private void CallAddCartApi() {

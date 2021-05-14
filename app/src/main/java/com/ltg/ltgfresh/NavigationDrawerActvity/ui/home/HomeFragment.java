@@ -37,6 +37,8 @@ import com.google.gson.reflect.TypeToken;
 import com.ltg.ltgfresh.Adapter.ProductAdapter;
 import com.ltg.ltgfresh.Adapter.SearchAdapter;
 import com.ltg.ltgfresh.Adapter.SlidingImage_Adapter;
+import com.ltg.ltgfresh.Fragments.CartViewFragment;
+import com.ltg.ltgfresh.Helper.FragmentCommunication;
 import com.ltg.ltgfresh.Helper.UpdateInterface;
 import com.ltg.ltgfresh.NavigationDrawerActvity.MainActivity;
 import com.ltg.ltgfresh.Network.ApiClient;
@@ -50,7 +52,7 @@ import com.ltg.ltgfresh.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class HomeFragment extends Fragment implements UpdateInterface {
+public class HomeFragment extends Fragment implements UpdateInterface, FragmentCommunication {
     private static int currentPage = 0;
     private static int NUM_PAGES = 0;
     private static final Integer[] IMAGES = {R.drawable.banner_images, R.drawable.banner_images, R.drawable.banner_images};
@@ -126,7 +128,7 @@ public class HomeFragment extends Fragment implements UpdateInterface {
                     if (response.isSuccessful()) {
                         Toast.makeText(getActivity(), String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
                         Log.e("Response",""+String.valueOf(response.body().getStatus()));
-                        searchAdapter = new SearchAdapter(getActivity(), response.body(),HomeFragment.this::recyclerviewOnUpdate);
+                        searchAdapter = new SearchAdapter(getActivity(), response.body(),HomeFragment.this::recyclerviewOnUpdate,HomeFragment.this);
                         product_recycler.setAdapter(searchAdapter);
                         searchAdapter.notifyDataSetChanged();
                         pDialog.dismiss();
@@ -271,7 +273,7 @@ public class HomeFragment extends Fragment implements UpdateInterface {
                     if (response.isSuccessful()) {
                         Toast.makeText(getActivity(), String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
                         Log.e("Response",""+String.valueOf(response.body().getStatus()));
-                        productAdapter = new ProductAdapter(getActivity(), response.body(),HomeFragment.this::recyclerviewOnUpdate);
+                        productAdapter = new ProductAdapter(getActivity(), response.body(),HomeFragment.this::recyclerviewOnUpdate, HomeFragment.this);
                         product_recycler.setAdapter(productAdapter);
                         productAdapter.notifyDataSetChanged();
                         pDialog.dismiss();
@@ -351,4 +353,10 @@ public class HomeFragment extends Fragment implements UpdateInterface {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+    @Override
+    public void respond(int position, Integer totalPrice) {
+
+        Log.e("total_price", "" + totalPrice);
+//        btn_addprice.setText(getResources().getString(R.string.Rs) + "" + String.valueOf(totalPrice));
+    }
 }

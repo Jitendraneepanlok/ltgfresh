@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.ltg.ltgfresh.Helper.FragmentCommunication;
 import com.ltg.ltgfresh.Helper.UpdateInterface;
 import com.ltg.ltgfresh.Helper.Utility;
 import com.ltg.ltgfresh.Network.ApiClient;
@@ -44,24 +46,32 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     private NavController navController;
     private ProgressDialog pDialog;
     private SessionManager sessionManager;
+    private FragmentCommunication mCommunicator;
 
-    public SearchAdapter(Context applicationContext, SearchResponse searchResponse, UpdateInterface listner) {
+
+    public SearchAdapter(Context applicationContext, SearchResponse searchResponse, UpdateInterface listner, FragmentCommunication communication) {
         this.mContext = applicationContext;
         this.searchResponse = searchResponse;
+        this.mCommunicator = communication;
         inflter = (LayoutInflater.from(applicationContext));
         this.listner = listner;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, price, btn_addtocart;
+        public TextView title, text_price, btn_addtocart, text_minus, text_quantity, text_plus;
         public ImageView thumbnail;
+        public RelativeLayout rl_increase_quantity;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
-            price = (TextView) view.findViewById(R.id.price);
+            text_price = (TextView) view.findViewById(R.id.text_price);
+            text_minus = (TextView) view.findViewById(R.id.text_minus);
+            text_quantity = (TextView) view.findViewById(R.id.text_quantity);
+            text_plus = (TextView) view.findViewById(R.id.text_plus);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             btn_addtocart = (TextView) view.findViewById(R.id.btn_addtocart);
+            rl_increase_quantity = (RelativeLayout) view.findViewById(R.id.rl_increase_quantity);
 
         }
     }
@@ -85,8 +95,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
     public void onBindViewHolder(final SearchAdapter.MyViewHolder holder, int position) {
         SearchProduct searchProduct = searchResponse.getProducts().get(position);
         holder.title.setText(searchProduct.getName());
-        if (searchProduct.getRate().size()>0){
-            holder.price.setText(mContext.getResources().getString(R.string.Rs) + " " + searchProduct.getRate().get(0).getPrice());
+        if (searchProduct.getRate().size() > 0) {
+            holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + searchProduct.getRate().get(0).getPrice());
         }
         Glide.with(mContext)
                 .load(searchProduct.getThumbnail())
@@ -106,7 +116,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
         holder.btn_addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartCountItem dcd = Utility.getCartCountItem();
+               /* CartCountItem dcd = Utility.getCartCountItem();
                 if (!dcd.getProduct_Id().contains(searchResponse.getProducts().get(position).getId())) {
                     ArrayList<String> list = dcd.getProduct_Id();
                     list.add(searchResponse.getProducts().get(position).getId());
@@ -114,9 +124,47 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
                 }
                 listner.recyclerviewOnUpdate(dcd.getProduct_Id().size());
                 CallAddCartApi();
+            }*/
+
+                holder.rl_increase_quantity.setVisibility(View.VISIBLE);
+                holder.btn_addtocart.setVisibility(View.INVISIBLE);
             }
         });
+
+        holder.text_minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searchProduct.getUserEnterQuantity() > 1) {
+                    searchProduct.setUserEnterQuantity(searchProduct.getUserEnterQuantity() - 1);
+                    holder.text_quantity.setText(searchProduct.getUserEnterQuantity().toString());
+                    searchProduct.setTotalprice(searchProduct.getTotalprice() - Integer.parseInt(searchProduct.getRate().get(0).getPrice()));
+                    Utility.grandtotal = Utility.grandtotal - Integer.parseInt(searchProduct.getRate().get(0).getPrice());
+
+                    holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + searchProduct.getUserEnterQuantity() * Integer.parseInt(searchProduct.getRate().get(0).getPrice()));
+                    mCommunicator.respond(0, Utility.grandtotal);
+
+                }
+            }
+
+        });
+
+        holder.text_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (searchProduct.getUserEnterQuantity() <= Integer.parseInt(searchProduct.getRate().get(0).getQuantity()))
+                    searchProduct.setUserEnterQuantity(searchProduct.getUserEnterQuantity() + 1);
+                holder.text_quantity.setText(searchProduct.getUserEnterQuantity().toString());
+                searchProduct.setTotalprice(searchProduct.getTotalprice() + Integer.parseInt(searchProduct.getRate().get(0).getPrice()));
+                Utility.grandtotal = Utility.grandtotal + Integer.parseInt(searchProduct.getRate().get(0).getPrice());
+                holder.text_price.setText(mContext.getResources().getString(R.string.Rs) + " " + searchProduct.getUserEnterQuantity() * Integer.parseInt(searchProduct.getRate().get(0).getPrice()));
+
+                mCommunicator.respond(0, Utility.grandtotal);
+            }
+
+        });
+
     }
+
 
     private void CallAddCartApi() {
         sessionManager = new SessionManager(mContext);

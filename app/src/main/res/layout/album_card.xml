@@ -43,7 +43,7 @@
 
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/text_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/title"
@@ -56,19 +56,82 @@
                 android:textSize="@dimen/_12sdp" />
 
             <TextView
+                android:id="@+id/btn_addtocart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/price"
+                android:layout_below="@+id/text_price"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:background="@color/purple_500"
+                android:background="@color/AddToCartButtonColor"
                 android:gravity="center"
                 android:paddingTop="@dimen/_5sdp"
-                android:id="@+id/btn_addtocart"
                 android:paddingBottom="@dimen/_5sdp"
                 android:text="Add To Cart"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12sdp"
+                android:visibility="visible"
                 android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_price"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:visibility="gone"
+                android:id="@+id/rl_increase_quantity">
+
+                <TextView
+                    android:id="@+id/text_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="1dp"
+                    android:background="@color/AddToCartButtonColor"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="60dp"
+                    android:layout_toRightOf="@+id/text_minus"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="138dp"
+                    android:layout_toRightOf="@+id/text_quantity"
+                    android:background="@color/AddToCartButtonColor"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:text="+"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
 

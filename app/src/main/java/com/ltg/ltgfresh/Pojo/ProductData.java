@@ -1,4 +1,5 @@
 package com.ltg.ltgfresh.Pojo;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -68,6 +69,43 @@ public class ProductData {
     @SerializedName("rate")
     @Expose
     private List<Rate> rate = null;
+
+    private transient Boolean addToCart;
+    private transient Integer userEnterQuantity = 1;
+    private transient Integer defalutQuantity = 1;
+    private transient Integer totalprice = 0;
+
+    public Boolean getAddToCart() {
+        return addToCart;
+    }
+
+    public void setAddToCart(Boolean addToCart) {
+        this.addToCart = addToCart;
+    }
+
+    public Integer getUserEnterQuantity() {
+        return userEnterQuantity;
+    }
+
+    public void setUserEnterQuantity(Integer userEnterQuantity) {
+        this.userEnterQuantity = userEnterQuantity;
+    }
+
+    public Integer getDefalutQuantity() {
+        return defalutQuantity;
+    }
+
+    public void setDefalutQuantity(Integer defalutQuantity) {
+        this.defalutQuantity = defalutQuantity;
+    }
+
+    public Integer getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(Integer totalprice) {
+        this.totalprice = totalprice;
+    }
 
     public String getId() {
         return id;

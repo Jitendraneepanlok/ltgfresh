@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ltg.ltgfresh.Adapter.ProductAdapter;
 import com.ltg.ltgfresh.Adapter.ShopAdapter;
+import com.ltg.ltgfresh.Helper.FragmentCommunication;
 import com.ltg.ltgfresh.Helper.UpdateInterface;
 import com.ltg.ltgfresh.NavigationDrawerActvity.ui.home.HomeFragment;
 import com.ltg.ltgfresh.Network.ApiClient;
@@ -40,7 +41,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class SubCategoryFragment extends Fragment implements UpdateInterface {
+public class SubCategoryFragment extends Fragment implements UpdateInterface, FragmentCommunication {
     private NavController navController;
     View view;
     RecyclerView recycer_sub_category;
@@ -100,7 +101,7 @@ public class SubCategoryFragment extends Fragment implements UpdateInterface {
                     if (response.isSuccessful()) {
                         Log.e("cart_Response", "" + response.body().toString());
                         Toast.makeText(getActivity(), ""+response.body().getStatus(), Toast.LENGTH_SHORT).show();
-                        ShopAdapter shopAdapter = new ShopAdapter(getActivity(), response.body(),SubCategoryFragment.this::recyclerviewOnUpdate);
+                        ShopAdapter shopAdapter = new ShopAdapter(getActivity(), response.body(),SubCategoryFragment.this::recyclerviewOnUpdate,SubCategoryFragment.this);
                         recycer_sub_category.setAdapter(shopAdapter);
                         shopAdapter.notifyDataSetChanged();
                         pDialog.dismiss();
@@ -173,5 +174,11 @@ public class SubCategoryFragment extends Fragment implements UpdateInterface {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+    @Override
+    public void respond(int position, Integer totalPrice) {
+
+        Log.e("total_price", "" + totalPrice);
+//        btn_addprice.setText(getResources().getString(R.string.Rs) + "" + String.valueOf(totalPrice));
+    }
 }
 
