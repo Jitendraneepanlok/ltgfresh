@@ -66,8 +66,7 @@ public class ItemDetailsFragment extends Fragment implements FragmentCommunicati
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_item_detail, container, false);
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.item_details);
-        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.toolbar);
 
         img_cart = (AppCompatImageView) toolbar.findViewById(R.id.img_cart);
         img_cart.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +122,8 @@ public class ItemDetailsFragment extends Fragment implements FragmentCommunicati
 
                 btn_addtocart.setTextColor(getResources().getColor(R.color.black));
                 btn_addtocart.setBackgroundColor(getResources().getColor(R.color.white));
+
+                navController.navigate(R.id.action_cartViewFragment_to_paymentFragment);
             }
         });
 

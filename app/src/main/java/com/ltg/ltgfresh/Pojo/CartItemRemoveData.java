@@ -1,12 +1,9 @@
 package com.ltg.ltgfresh.Pojo;
-
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class CartListData {
-
+public class CartItemRemoveData {
     @SerializedName("id")
     @Expose
     private String id;
@@ -72,12 +69,7 @@ public class CartListData {
     private String createdAt;
     @SerializedName("rate")
     @Expose
-    private List<CartListRate> rate = null;
-
-    private transient Boolean addToCart;
-    private transient Integer userEnterQuantity = 1;
-    private transient Integer defalutQuantity = 1;
-    private transient Integer totalprice = 0;
+    private List<CartItemRemoveRate> rate = null;
 
     public String getId() {
         return id;
@@ -247,43 +239,12 @@ public class CartListData {
         this.createdAt = createdAt;
     }
 
-    public List<CartListRate> getRate() {
+    public List<CartItemRemoveRate> getRate() {
         return rate;
     }
 
-    public void setRate(List<CartListRate> rate) {
+    public void setRate(List<CartItemRemoveRate> rate) {
         this.rate = rate;
     }
 
-    public Boolean getAddToCart() {
-        return addToCart;
-    }
-
-    public void setAddToCart(Boolean addToCart) {
-        this.addToCart = addToCart;
-    }
-
-    public Integer getUserEnterQuantity() {
-        return userEnterQuantity;
-    }
-
-    public void setUserEnterQuantity(Integer userEnterQuantity) {
-        this.userEnterQuantity = userEnterQuantity;
-    }
-
-    public Integer getDefalutQuantity() {
-        return defalutQuantity;
-    }
-
-    public void setDefalutQuantity(Integer defalutQuantity) {
-        this.defalutQuantity = defalutQuantity;
-    }
-
-    public Integer getTotalprice() {
-        return totalprice;
-    }
-
-    public void setTotalprice(Integer totalprice) {
-        this.totalprice = totalprice;
-    }
 }

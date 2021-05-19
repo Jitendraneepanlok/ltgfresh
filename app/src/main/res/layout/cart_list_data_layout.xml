@@ -132,6 +132,37 @@
             </RelativeLayout>
 
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlQuantity"
+                android:layout_marginLeft="@dimen/_110sdp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_delete"
+                android:id="@+id/img_delete"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_toRightOf="@+id/img_category" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/img_delete"
+                android:layout_alignParentLeft="true"
+                android:text="@string/remove"
+                android:layout_below="@+id/rlQuantity"
+                android:textColor="@color/red"
+                android:layout_marginLeft="@dimen/_140sdp"
+                android:textStyle="bold"
+                android:id="@+id/tv_remove"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
+                android:fontFamily="@font/arialmt"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_10sdp"
+                android:layout_below="@+id/img_delete"
+                android:background="@color/white"/>
 
         </RelativeLayout>
 

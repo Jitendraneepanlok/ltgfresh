@@ -61,7 +61,7 @@ public class CartViewFragment extends Fragment implements FragmentCommunication 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_cart_view, container, false);
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         sessionManager = new SessionManager(getActivity());
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 

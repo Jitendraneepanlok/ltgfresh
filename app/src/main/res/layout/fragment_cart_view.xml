@@ -4,7 +4,8 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/app_bar"
-        android:id="@+id/TOLL_FREE"/>
+        android:id="@+id/TOLL_FREE"
+        android:visibility="gone"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -15,12 +16,11 @@
         android:id="@+id/cart_recycler"
         android:paddingBottom="@dimen/_10sdp"/>
 
-    <TextView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_30sdp"
-        android:layout_below="@+id/cart_recycler"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cart_recycler"
+        android:background="@color/white"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -63,6 +63,11 @@
             android:name="product_ID"
             app:argType="string" />
 
+        <action
+            android:id="@+id/action_cartViewFragment_to_paymentFragment"
+            app:destination="@id/nav_payment"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
     </fragment>
 
     <fragment

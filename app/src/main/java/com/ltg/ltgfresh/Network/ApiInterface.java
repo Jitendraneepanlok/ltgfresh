@@ -2,6 +2,7 @@ package com.ltg.ltgfresh.Network;
 
 import com.ltg.ltgfresh.Pojo.AddToCartFromHomeResponse;
 import com.ltg.ltgfresh.Pojo.BannerResponse;
+import com.ltg.ltgfresh.Pojo.CartItemRemoveResponse;
 import com.ltg.ltgfresh.Pojo.CartListResponse;
 import com.ltg.ltgfresh.Pojo.ForgetPasswordResponse;
 import com.ltg.ltgfresh.Pojo.LoginResponse;
@@ -121,5 +122,12 @@ public interface ApiInterface {
 
     @GET("search_products?")
     Call<SearchResponse> getSearchProducts(@Query("name") String Name);
+
+
+    //=====================  Get Remove Product Api from CartList ===============================
+
+    @GET("cartprodremove?")
+    Call<CartItemRemoveResponse> getRemoveCartProducts(@Query("user_id") String User_Id, @Query("id") String Id);
+
 
 }
