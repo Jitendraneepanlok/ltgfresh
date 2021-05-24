@@ -39,13 +39,34 @@
             app:destination="@id/nav_payment"
             app:exitAnim="@anim/nav_default_exit_anim"/>
 
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/nav_profile"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+        <action
+            android:id="@+id/action_homeFragment_to_cartViewFragment"
+            app:destination="@id/nav_cart_view"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/nav_payment"
         android:name="com.ltg.ltgfresh.Fragments.PaymentFragment"
         android:label="@string/payment"
-        tools:layout="@layout/fragment_payment"/>
+        tools:layout="@layout/fragment_payment">
+
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/nav_profile"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+        <action
+            android:id="@+id/action_homeFragment_to_cartViewFragment"
+            app:destination="@id/nav_cart_view"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
@@ -68,13 +89,35 @@
             app:destination="@id/nav_payment"
             app:exitAnim="@anim/nav_default_exit_anim"/>
 
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/nav_profile"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+        <action
+            android:id="@+id/action_homeFragment_to_cartViewFragment"
+            app:destination="@id/nav_cart_view"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.ltg.ltgfresh.NavigationDrawerActvity.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery">
+
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/nav_profile"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+        <action
+            android:id="@+id/action_homeFragment_to_cartViewFragment"
+            app:destination="@id/nav_cart_view"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -92,6 +135,16 @@
             app:destination="@id/nav_sub_category"
             app:exitAnim="@anim/nav_default_exit_anim"/>
 
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/nav_profile"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+        <action
+            android:id="@+id/action_homeFragment_to_cartViewFragment"
+            app:destination="@id/nav_cart_view"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
     </fragment>
 
 
@@ -104,6 +157,16 @@
         <action
             android:id="@+id/action_homeFragment_to_itemDetailFragment"
             app:destination="@id/nav_item_details"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/nav_profile"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+        <action
+            android:id="@+id/action_homeFragment_to_cartViewFragment"
+            app:destination="@id/nav_cart_view"
             app:exitAnim="@anim/nav_default_exit_anim"/>
 
     </fragment>

@@ -49,7 +49,7 @@ public class ItemDetailsFragment extends Fragment implements FragmentCommunicati
     AppCompatButton btn_addtocart, btn_buynow;
     String Product_ID;
     private ProgressDialog pDialog;
-    AppCompatTextView tv_title_name, tv_price, tv_description, tv_benefite, tv_disclimer, tv_review;
+    AppCompatTextView tv_title_name, tv_price, tv_description, tv_benefite, tv_disclimer, tv_review, tv_unit;
     AppCompatImageView img_product, img_cart, img_profile;
     TextView txt_quantity;
     View view;
@@ -92,6 +92,7 @@ public class ItemDetailsFragment extends Fragment implements FragmentCommunicati
     }
 
     private void initView() {
+        tv_unit = (AppCompatTextView) view.findViewById(R.id.tv_unit);
         txt_quantity = (TextView) view.findViewById(R.id.txt_quantity);
         tv_title_name = (AppCompatTextView) view.findViewById(R.id.tv_title_name);
         tv_price = (AppCompatTextView) view.findViewById(R.id.tv_price);
@@ -135,7 +136,7 @@ public class ItemDetailsFragment extends Fragment implements FragmentCommunicati
                     quantity += 1;
                     txt_quantity.setText(String.valueOf(quantity));
                     int TotalPrice = Integer.parseInt(Price);
-                    int GrandTotal = TotalPrice *quantity;
+                    int GrandTotal = TotalPrice * quantity;
                     tv_price.setText(String.valueOf(GrandTotal));
                 }
             }
@@ -149,7 +150,7 @@ public class ItemDetailsFragment extends Fragment implements FragmentCommunicati
                     quantity -= 1;
                     txt_quantity.setText(String.valueOf(quantity));
                     int TotalPrice = Integer.parseInt(Price);
-                    int GrandTotal = TotalPrice *quantity;
+                    int GrandTotal = TotalPrice * quantity;
                     tv_price.setText(String.valueOf(GrandTotal));
                 }
             }
@@ -214,10 +215,11 @@ public class ItemDetailsFragment extends Fragment implements FragmentCommunicati
                     if (response.isSuccessful()) {
                         Toast.makeText(getActivity(), String.valueOf(response.body().getStatus()), Toast.LENGTH_SHORT).show();
 
+                        tv_unit.setText(response.body().getProducts().get(0).getRate().get(0).getUnit() + "" + response.body().getProducts().get(0).getRate().get(0).getUnitIn());
                         Product_id = response.body().getProducts().get(0).getRate().get(0).getProductId();
                         Quantity = response.body().getProducts().get(0).getRate().get(0).getQuantity();
                         tv_title_name.setText(Html.fromHtml(response.body().getProducts().get(0).getName()));
-                         Price = response.body().getProducts().get(0).getRate().get(0).getPrice();
+                        Price = response.body().getProducts().get(0).getRate().get(0).getPrice();
                         tv_price.setText(Price);
                         tv_description.setText(Html.fromHtml(response.body().getProducts().get(0).getDescription()));
                         tv_benefite.setText(Html.fromHtml(response.body().getProducts().get(0).getBenefits()));
@@ -259,12 +261,4 @@ public class ItemDetailsFragment extends Fragment implements FragmentCommunicati
     public void respond(int position, Integer Price) {
 
     }
-
-   /* @Override
-    public void onResume() {
-        super.onResume();
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setTitle(R.string.item_details);
-    }*/
 }

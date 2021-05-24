@@ -95,11 +95,33 @@
                         android:paddingLeft="@dimen/_5sdp"
                         android:singleLine="true"
                         android:text="100"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_title_name"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:layout_toRightOf="@+id/tv_price"
+                        android:fontFamily="@font/arialmt"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:paddingRight="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:background="@drawable/single_item_qunatity"
+                        android:text="@string/app_name"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp" />
 
                     <RelativeLayout
                         android:id="@+id/rlQuantity"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_title_name"

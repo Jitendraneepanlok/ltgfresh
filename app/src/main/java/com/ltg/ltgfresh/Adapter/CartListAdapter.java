@@ -104,7 +104,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
         Glide.with(mContext).load(cartListData.getThumbnail()).into(holder.img_category);
         if (cartListData.getRate().get(0).getQuantity() != null && cartListData.getRate().get(0).getUnitIn() != null && cartListData.getRate().get(0).getPrice() != null) {
             holder.tv_price.setText(mContext.getResources().getString(R.string.Rs) + "" + cartListData.getRate().get(0).getPrice());
-            holder.txt_quantity.setText(cartListData.getRate().get(0).getQuantity() + "" + cartListData.getRate().get(0).getUnitIn());
+//            holder.txt_quantity.setText(cartListData.getRate().get(0).getQuantity() + "" + cartListData.getRate().get(0).getUnitIn());
         }
 
         holder.imgAdd.setOnClickListener(new View.OnClickListener() {

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,6 +69,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         public TextView title, text_price, btn_addtocart, text_minus, text_quantity, text_plus;
         public ImageView thumbnail;
         public RelativeLayout rl_increase_quantity;
+        public AppCompatImageView img_like;
 
         public MyViewHolder(View view) {
             super(view);
@@ -78,7 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             text_plus = (TextView) view.findViewById(R.id.text_plus);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
             btn_addtocart = (TextView) view.findViewById(R.id.btn_addtocart);
-            rl_increase_quantity = (RelativeLayout) view.findViewById(R.id.rl_increase_quantity);
+            img_like = (AppCompatImageView)view.findViewById(R.id.img_like);
 
         }
     }
@@ -171,6 +173,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
             }
 
         });
+
+        holder.img_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callWhizeListApi();
+            }
+        });
+    }
+
+    private void callWhizeListApi() {
+
+
     }
 
     private void CallAddCartApi() {
