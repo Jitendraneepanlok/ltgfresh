@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private SessionManager sessionManager;
     AppCompatTextView tvname, tv_address;
     static String result = "";
-    AppCompatImageView img_profile, img_cart;
+    AppCompatImageView img_profile, img_cart,img_wishlist;
     String name;
     NavController navController;
     private ProgressDialog pDialog;
@@ -97,6 +97,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }
         });
 
+        img_wishlist = (AppCompatImageView)findViewById(R.id.img_wishlist);
+        img_wishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_homeFragment_to_wishlistFragment);
+
+            }
+        });
 
         img_cart = (AppCompatImageView) findViewById(R.id.img_cart);
         img_cart.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 navController.navigate(R.id.action_homeFragment_to_cartViewFragment);
             }
         });
-
 
         tv_cart_count = (TextView) findViewById(R.id.tv_cart_count);
 

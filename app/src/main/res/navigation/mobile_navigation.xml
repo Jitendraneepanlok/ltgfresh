@@ -22,6 +22,11 @@
             app:exitAnim="@anim/nav_default_exit_anim"/>
 
         <action
+            android:id="@+id/action_homeFragment_to_wishlistFragment"
+            app:destination="@id/nav_wishlist"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
+
+        <action
             android:id="@+id/action_homeFragment_to_cartViewFragment"
             app:destination="@id/nav_cart_view"
             app:exitAnim="@anim/nav_default_exit_anim"/>
@@ -73,6 +78,14 @@
         android:name="com.ltg.ltgfresh.Fragments.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile"/>
+
+
+
+    <fragment
+        android:id="@+id/nav_wishlist"
+        android:name="com.ltg.ltgfresh.Fragments.WishListFragment"
+        android:label="@string/wishlist"
+        tools:layout="@layout/fragment_wishlist"/>
 
     <fragment
         android:id="@+id/nav_item_details"

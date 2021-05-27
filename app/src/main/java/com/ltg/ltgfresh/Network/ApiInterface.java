@@ -16,6 +16,7 @@ import com.ltg.ltgfresh.Pojo.SingleProductResponse;
 import com.ltg.ltgfresh.Pojo.SubCategoryProductsResponse;
 import com.ltg.ltgfresh.Pojo.UpdateProfileResponse;
 import com.ltg.ltgfresh.Pojo.UserProfileResponse;
+import com.ltg.ltgfresh.Pojo.WishListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -130,4 +131,8 @@ public interface ApiInterface {
     Call<CartItemRemoveResponse> getRemoveCartProducts(@Query("user_id") String User_Id, @Query("id") String Id);
 
 
+    //=====================  Get WishList Api Data ===============================
+
+    @GET("wishlist?")
+    Call<WishListResponse> getWishList(@Query("user_id") String User_Id);
 }

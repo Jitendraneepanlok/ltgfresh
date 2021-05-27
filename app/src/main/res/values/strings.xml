@@ -48,5 +48,8 @@
     <string name="payyou">Pay You Money</string>
     <string name="oher">Others</string>
     <string name="remove">Remove</string>
+    <string name="wishlist">WishList</string>
+    <string name="wishlist_product">WishList Products</string>
+    <string name="discount">Discount</string>
 
 </resources>

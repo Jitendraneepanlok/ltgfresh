@@ -25,6 +25,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:scaleType="fitXY"
+                android:layout_marginTop="@dimen/_30sdp"
                 android:src="@drawable/app_logo" />
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -35,6 +36,18 @@
                 android:layout_marginRight="@dimen/_5sdp"
                 android:src="@drawable/ic_like" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/discount"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:id="@+id/txt_discount"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginRight="@dimen/_40sdp"
+               android:background="@drawable/ic_discount" />
 
             <TextView
                 android:id="@+id/title"
